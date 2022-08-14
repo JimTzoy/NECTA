@@ -16,6 +16,7 @@
                     @endif
                     @if(Auth::user()->hasRole('admin'))
                     <p>HOLA ADMINISTRADOR</p>
+                    <a href="{{route('plans.index')}}">PLANES</a>
                     @else
                     <P>HOLA USUARIO NORMAL</P>
                     @endif
