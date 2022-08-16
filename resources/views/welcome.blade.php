@@ -1,49 +1,51 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.inicio')
 
-        <title>NECTA</title>
+@section('content')
 
-        <!-- Fonts -->
-        <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-        <style>
-            body {
-                font-family: 'Nunito', sans-serif;
-            }
-        </style>
-    </head>
-    <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                        @endif
-                    @endauth
+ <!-- Masthead-->
+ <header class="masthead">
+            <div class="container">
+                <div class="masthead-subheading">Bienvenido a NECTA</div>
+                <div class="masthead-heading text-uppercase">ENCANTADO DE CONOCERTE</div>
+            </div>
+        </header>
+        <!-- Services-->
+        <section class="page-section" id="services">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Servicios</h2>
+                    <h3 class="section-subheading text-muted">Ofrecemos lo que los clientes necesitan</h3>
                 </div>
-            @endif
-            
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-4">
-                    
-                </div>
-                <div class="col-md-4">
-                    <h1>HOLA MUNDO</h1>
-                </div>
-                <div class="col-md-4">
-
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-wifi fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h4 class="my-3">Provedor de Internet</h4>
+                        <p class="text-muted">Nos dedicamos a proveer servicios de internet a comunidades retiradas</p>
+                        <a class="btn btn-primary btn-xl text-uppercase" href="InternetNecta">Conocer Mas</a>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h4 class="my-3">Diseño web</h4>
+                        <p class="text-muted">le ayudamos a diseñar y desarrollar su idea o concepto de pagina </p>
+                        <a class="btn btn-primary btn-xl text-uppercase" href="InternetNecta">Conocer Mas</a>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-comments-question fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <h4 class="my-3">Soporte Tecnico</h4>
+                        <p class="text-muted">Solucionamos problemas </p>
+                        <a class="btn btn-primary btn-xl text-uppercase" href="InternetNecta">Conocer Mas</a>
+                    </div>
                 </div>
             </div>
-
-        </div>
-    </body>
-</html>
+        </section>
+        
+@endsection
