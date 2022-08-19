@@ -42,6 +42,23 @@
             </a>
             
           </li>
+          <li class="nav-item">
+            <a href="{{ url('/home') }}">
+              <span class="icon" width="24" height="22" viewBox="0 0 22 22">
+                <span class="lni lni-users"></span>
+              </span>
+              <span class="text">Usuarios</span>
+            </a>
+            
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/home') }}">
+              <span class="icon" width="24" height="22" viewBox="0 0 22 22">
+                <span class="lni lni-users"></span>
+              </span>
+              <span class="text">Usuarios</span>
+            </a>
+          </li>
           <span class="divider"><hr /></span>
         </ul>
       </nav>
