@@ -17,6 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/servicios', function () {
+    return view('servicios');
+});
+Route::get('/portafolio', function () {
+    return view('portafolio');
+});
+Route::get('/acercade', function () {
+    return view('acercade');
+});
 
 Auth::routes();
 

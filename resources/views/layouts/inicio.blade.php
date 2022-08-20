@@ -34,9 +34,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#services">Servicios</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#portfolio">Portafolio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#about">Acarca de</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/servicios') }}">Servicios</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/portafolio') }}">Portafolio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/acercade') }}">Acarca de</a></li>
                         @if (Route::has('login'))
                             @auth
                                     <li class="nav-item"><a href="{{ url('/home') }}" class="nav-link">Home</a></li>
