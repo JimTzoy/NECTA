@@ -52,11 +52,11 @@
             
           </li>
           <li class="nav-item">
-            <a href="{{ url('/home') }}">
+            <a href="{{route('plans.index')}}">
               <span class="icon" width="24" height="22" viewBox="0 0 22 22">
-                <span class="lni lni-users"></span>
+                <span class="lni lni-agenda"></span>
               </span>
-              <span class="text">Usuarios</span>
+              <span class="text">Planes</span>
             </a>
           </li>
           <span class="divider"><hr /></span>

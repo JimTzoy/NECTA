@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Plan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PlanController extends Controller
 {
@@ -14,7 +16,9 @@ class PlanController extends Controller
      */
     public function index(Request $request)
     {
-        return view('plans.index');
+        $request->user()->authorizeRoles(['admin']);
+        $pl = Db::table('plans')->select('id','plan', 'informacion','created_at','updated_at')->get();
+        return view('plans.index', ['pl' => $pl]);
     }
 
     /**
@@ -35,7 +39,24 @@ class PlanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->user()->authorizeRoles(['admin']);
+        //$user_id[] = Auth::user();
+        //$id_user = $user_id[0]['id'];
+        $plan = new plan();
+        $plan->plan = $request->plan;
+        $plan->informacion = $request->informacion;
+        $plan->save();
+        if ($plan == null) {
+             $notification = array(
+                    'message' => 'ERROR. El plan no se ha registrado', 
+                    'alert-type' => 'error'  );
+              return back()->with($notification);
+        }else{
+         $notification = array(
+                    'message' => 'EXITO. Plan registrado', 
+                    'alert-type' => 'success'  );
+         return back()->with($notification);
+        }
     }
 
     /**
@@ -46,7 +67,7 @@ class PlanController extends Controller
      */
     public function show(Plan $plan)
     {
-        //
+        return view('plans.show');
     }
 
     /**
@@ -57,7 +78,7 @@ class PlanController extends Controller
      */
     public function edit(Plan $plan)
     {
-        //
+        return view('plans.edit');
     }
 
     /**
@@ -78,8 +99,12 @@ class PlanController extends Controller
      * @param  \App\Models\Plan  $plan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Plan $plan)
+    public function destroy($id)
     {
-        //
+        Plan::find($id)->delete();
+        $notification = array(
+            'message' => 'PAGO ELIMINADO EXITOSAMENTE', 
+            'alert-type' => 'success');
+        return back()->with($notification);
     }
 }
