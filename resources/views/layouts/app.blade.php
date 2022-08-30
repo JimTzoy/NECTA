@@ -10,11 +10,13 @@
     <title>{{ config('app.name', 'NECTA') }}</title>
 
     <!-- Fonts -->
+    <link rel="stylesheet" href="css/toastr.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/lineicons.css" />
     <link rel="stylesheet" href="assets/css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="assets/css/fullcalendar.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
+    
 
     <!-- Scripts -->
 </head>
@@ -39,18 +41,19 @@
                 </svg>
               </span>
               <span class="text">Dashboard</span>
-            </a>
-            
+            </a>  
           </li>
+          @if(Auth::user()->hasRole('admin'))
           <li class="nav-item">
             <a href="{{ url('/home') }}">
               <span class="icon" width="24" height="22" viewBox="0 0 22 22">
                 <span class="lni lni-users"></span>
               </span>
               <span class="text">Usuarios</span>
-            </a>
-            
+            </a> 
           </li>
+          @else
+          @if(Auth::user()->hasRole('empresa'))
           <li class="nav-item">
             <a href="{{route('plans.index')}}">
               <span class="icon" width="24" height="22" viewBox="0 0 22 22">
@@ -59,6 +62,17 @@
               <span class="text">Planes</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('zonas.index')}}">
+              <span class="icon" width="24" height="22" viewBox="0 0 22 22">
+                <span class="lni lni-agenda"></span>
+              </span>
+              <span class="text">Zonas</span>
+            </a>
+          </li>
+          @else
+          @endif
+          @endif
           <span class="divider"><hr /></span>
         </ul>
       </nav>
@@ -241,20 +255,20 @@
                     aria-labelledby="profile"
                   >
                     <li>
-                      <a href="#0">
-                        <i class="lni lni-user"></i> View Profile
+                      <a href="{{route('perfil.index')}}">
+                        <i class="lni lni-user"></i> Perfil
                       </a>
                     </li>
                     <li>
                       <a href="#0">
-                        <i class="lni lni-alarm"></i> Notifications
+                        <i class="lni lni-alarm"></i> Notificaciones
                       </a>
                     </li>
                     <li>
-                      <a href="#0"> <i class="lni lni-inbox"></i> Messages </a>
+                      <a href="#0"> <i class="lni lni-inbox"></i> Mensajes </a>
                     </li>
                     <li>
-                      <a href="#0"> <i class="lni lni-cog"></i> Settings </a>
+                      <a href="#0"> <i class="lni lni-cog"></i> fonfiguraciones </a>
                     </li>
                     <li>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="lni lni-exit"></i>Cerrar sesión
@@ -313,6 +327,9 @@
     <!-- ======== main-wrapper end =========== -->
 
     <!-- ========= All Javascript files linkup ======== -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="js/toastr.min.js"></script>
+    <script src="js/popper.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/Chart.min.js"></script>
     <script src="assets/js/dynamic-pie-chart.js"></script>
@@ -322,5 +339,27 @@
     <script src="assets/js/world-merc.js"></script>
     <script src="assets/js/polyfill.js"></script>
     <script src="assets/js/main.js"></script>
+    
+    <script>
+    @if (Session::has('message'))
+        var type="{{Session::get('alert-type','info')}}"
+        switch(type){
+            case 'info':
+                 toastr.info("{{ Session::get('message') }}");
+                 break;
+            case 'success':
+                toastr.success("{{ Session::get('message') }}");
+                break;
+            case 'warning':
+                toastr.warning("{{ Session::get('message') }}");
+                break;
+            case 'error':
+                toastr.error("{{ Session::get('message') }}");
+                break;
+        }
+    @endif
+  
+</script>
+@yield('javascript')
 </body>
 </html>
