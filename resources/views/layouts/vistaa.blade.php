@@ -10,6 +10,7 @@
     <title>{{ config('app.name', 'NECTA') }}</title>
 
     <!-- Fonts -->
+    <link rel="stylesheet" href="../css/toastr.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../assets/css/lineicons.css" />
     <link rel="stylesheet" href="../assets/css/materialdesignicons.min.css" />
@@ -296,8 +297,10 @@
     <!-- ======== main-wrapper end =========== -->
 
     <!-- ========= All Javascript files linkup ======== -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/Chart.min.js"></script>
+    <script src="../js/toastr.min.js"></script>
     <script src="../assets/js/dynamic-pie-chart.js"></script>
     <script src="../assets/js/moment.min.js"></script>
     <script src="../assets/js/fullcalendar.js"></script>
@@ -305,5 +308,26 @@
     <script src="../assets/js/world-merc.js"></script>
     <script src="../assets/js/polyfill.js"></script>
     <script src="../assets/js/main.js"></script>
+    <script>
+    @if(Session::has('message'))
+        var type="{{Session::get('alert-type','info')}}";
+        switch(type){
+            case 'info':
+                 toastr.info("{{ Session::get('message') }}");
+                 break;
+            case 'success':
+                toastr.success("{{ Session::get('message') }}");
+                break;
+            case 'warning':
+                toastr.warning("{{ Session::get('message') }}");
+                break;
+            case 'error':
+                toastr.error("{{ Session::get('message') }}");
+                break;
+        }
+    @endif
+  
+</script>
+@yield('javascript')
 </body>
 </html>
