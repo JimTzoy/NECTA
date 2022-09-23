@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('idAntena');
             $table->unsignedBigInteger('plan_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('zona_id');
             $table->foreign('user_id')
             ->references('id')
             ->on('users')
@@ -34,6 +35,10 @@ return new class extends Migration
             $table->foreign('plan_id')
             ->references('id')
             ->on('plans')
+            ->onDelete('cascade');
+            $table->foreign('zona_id')
+            ->references('id')
+            ->on('zonas')
             ->onDelete('cascade');
             $table->timestamps();
         });

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Zona;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ZonaController extends Controller
 {
@@ -14,7 +16,11 @@ class ZonaController extends Controller
      */
     public function index(Request $request)
     {
-        return view('zonas.index');
+        $request->user()->authorizeRoles(['empresa']);
+        $user_id[] = Auth::user();
+        $id_user = $user_id[0]['id'];
+        $zn = Db::table('zonas')->select('id','clave', 'nombre','created_at','updated_at')->where('user_id','=',$id_user)->get();
+        return view('zonas.index',['zn'=>$zn]);
     }
 
     /**
@@ -24,7 +30,7 @@ class ZonaController extends Controller
      */
     public function create()
     {
-        //
+        return view('zonas.create');
     }
 
     /**
@@ -35,7 +41,25 @@ class ZonaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->user()->authorizeRoles(['empresa']);
+        $user_id[] = Auth::user();
+        $id_user = $user_id[0]['id'];
+        $zona = new Zona();
+        $zona->clave = $request->clave;
+        $zona->nombre = $request->nombre;
+        $zona->user_id = $id_user;
+        $zona->save();
+        if ($zona == null) {
+             $notification = array(
+                    'message' => 'ERROR. La zona no se ha registrado', 
+                    'alert-type' => 'error'  );
+              return back()->with($notification);
+        }else{
+         $notification = array(
+                    'message' => 'EXITO. Zona registrado', 
+                    'alert-type' => 'success'  );
+         return back()->with($notification);
+        }
     }
 
     /**
