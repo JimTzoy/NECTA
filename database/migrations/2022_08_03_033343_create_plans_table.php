@@ -17,6 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('plan');
             $table->string('informacion');
+            $table->integer('precio');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }

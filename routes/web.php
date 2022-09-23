@@ -3,6 +3,7 @@
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ZonaController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,3 +41,5 @@ Route::resource('empresa', EmpresaController::class);
 Route::resource('zonas', ZonaController::class);
 
 Route::resource('perfil', PerfilController::class);
+
+Route::resource('clientes', ClienteController::class);

@@ -17,7 +17,7 @@ class PlanController extends Controller
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['empresa']);
-        $pl = Db::table('plans')->select('id','plan', 'informacion','created_at','updated_at')->get();
+        $pl = Db::table('plans')->select('id','plan','precio', 'informacion','created_at','updated_at')->get();
         return view('plans.index', ['pl' => $pl]);
     }
 
@@ -40,11 +40,13 @@ class PlanController extends Controller
     public function store(Request $request)
     {
         $request->user()->authorizeRoles(['empresa']);
-        //$user_id[] = Auth::user();
-        //$id_user = $user_id[0]['id'];
+        $user_id[] = Auth::user();
+        $id_user = $user_id[0]['id'];
         $plan = new plan();
         $plan->plan = $request->plan;
         $plan->informacion = $request->informacion;
+        $plan->precio = $request->precio;
+        $plan->user_id = $id_user;
         $plan->save();
         if ($plan == null) {
              $notification = array(

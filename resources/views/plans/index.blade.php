@@ -47,6 +47,7 @@
                   <th><h6>#</h6></th>
                   <th><h6>Nombre</h6></th>
                   <th><h6>Información</h6></th>
+                  <th><h6>Precio</h6></th>
                   <th><h6>Creado</h6></th>
                   <th><h6>Actualizado</h6></th>
                   <th><h6>Acciones</h6></th>
@@ -63,6 +64,9 @@
                           </td>
                           <td class="min-width">
                             <p><?php echo $p->informacion; ?></p>
+                          </td>
+                          <td class="min-width">
+                            <p><?php echo $p->precio; ?></p>
                           </td>
                           <td class="min-width">
                             <p><?php echo $p->created_at; ?></p>

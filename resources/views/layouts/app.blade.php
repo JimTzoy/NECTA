@@ -70,6 +70,14 @@
               <span class="text">Zonas</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('clientes.index')}}">
+              <span class="icon" width="24" height="22" viewBox="0 0 22 22">
+                <span class="lni lni-users"></span>
+              </span>
+              <span class="text">Clientes</span>
+            </a>
+          </li>
           @else
           @endif
           @endif
