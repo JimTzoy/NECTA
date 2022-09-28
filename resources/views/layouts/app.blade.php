@@ -78,6 +78,14 @@
               <span class="text">Clientes</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('antenas.index')}}">
+              <span class="icon" width="24" height="22" viewBox="0 0 22 22">
+                <span class="lni lni-atlassian"></span>
+              </span>
+              <span class="text">Antenas</span>
+            </a>
+          </li>
           @else
           @endif
           @endif

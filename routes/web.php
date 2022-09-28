@@ -5,6 +5,7 @@ use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ZonaController;
+use App\Http\Controllers\AntenaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,3 +44,5 @@ Route::resource('zonas', ZonaController::class);
 Route::resource('perfil', PerfilController::class);
 
 Route::resource('clientes', ClienteController::class);
+
+Route::resource('antenas', AntenaController::class);
