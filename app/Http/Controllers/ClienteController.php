@@ -51,9 +51,20 @@ class ClienteController extends Controller
         $id_user = $user_id[0]['id'];
         $a = $request->zona_id;
         $zn = Db::table('zonas')->where('id','=',$a)->value('clave');
-        $contar = DB::table('clientes')->where('user_id','=',$id_user)->count();
-        $numero = $contar + 1;
-        $ncliente = $zn."00".$numero;
+        $contar = DB::table('clientes')->orderByDesc('id')->where('user_id','=',$id_user)->value('nocliente');
+        $n = substr($contar, -3);
+
+        $numero = $n + 1;
+        if($numero >= 10) {
+            if($numero >= 100){
+                $ncliente = $zn."".$numero;
+            }else{
+                $ncliente = $zn."0".$numero;
+            }
+          
+        }else{
+            $ncliente = $zn."00".$numero;
+        }
         $Cliente = new Cliente();
         $Cliente->nocliente = $ncliente;
         $Cliente->nombre = $request->nombre;
@@ -122,8 +133,12 @@ class ClienteController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cliente $cliente)
+    public function destroy($id)
     {
-        //
+        Cliente::find($id)->delete();
+        $notification = array(
+            'message' => 'PAGO ELIMINADO EXITOSAMENTE', 
+            'alert-type' => 'success');
+        return back()->with($notification);
     }
 }
