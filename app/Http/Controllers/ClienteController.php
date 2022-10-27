@@ -99,9 +99,14 @@ class ClienteController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function show(Cliente $cliente)
+    public function show(Request $request,$id)
     {
-        //
+        $request->user()->authorizeRoles(['empresa']);
+        $user_id[] = Auth::user();
+        $cte = Cliente::find($id);
+        $zn = Db::table('zonas')->select('id','clave','nombre')->get();
+        var_dump($cte);
+        return view('clientes.show',compact('cte'),['zn'=>$zn]);
     }
 
     /**
