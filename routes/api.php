@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\API\PlanesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,4 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('planes')->group(function () {
+    Route::get('/',[ PlanesController::class, 'getAll']);
+    Route::post('/',[ PlanesController::class, 'create']);
+    Route::delete('/{id}',[ PlanesController::class, 'delete']);
+    Route::get('/{id}',[ PlanesController::class, 'get']);
+    Route::put('/{id}',[ PlanesController::class, 'update']);
 });
