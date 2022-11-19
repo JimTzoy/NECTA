@@ -1,6 +1,7 @@
 @extends('layouts.vlogin')
 
 @section('content')
+{!! NoCaptcha::renderJs() !!}
 <div class="row g-0 auth-row">
     <div class="col-lg-6">
         <div class="auth-cover-wrapper bg-primary-100">
@@ -80,31 +81,12 @@
                       </div>
                       <!-- end col -->
                       <div class="col-12">
-                        <div class="form-check checkbox-style mb-30">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="checkbox-not-robot"
-                          />
-                          <label
-                            class="form-check-label"
-                            for="checkbox-not-robot"
-                          >
-                            No soy un ROBOT</label
-                          >
-                        </div>
+                      {!! NoCaptcha::display() !!}
                       </div>
                       <!-- end col -->
                       <div class="col-12">
-                        <div
-                          class="
-                            button-group
-                            d-flex
-                            justify-content-center
-                            flex-wrap
-                          "
-                        >
+                        <div class="button-group d-flex justify-content-center flex-wrap">
+                       
                           <button type="submit"
                             class="
                               main-btn
@@ -122,28 +104,6 @@
                     <!-- end row -->
                   </form>
                   <div class="singup-option pt-40">
-                    <p class="text-sm text-medium text-center text-gray">
-                      Registrese facilmente con
-                    </p>
-                    <div
-                      class="
-                        button-group
-                        pt-40
-                        pb-40
-                        d-flex
-                        justify-content-center
-                        flex-wrap
-                      "
-                    >
-                      <button class="main-btn primary-btn-outline m-2">
-                        <i class="lni lni-facebook-filled mr-10"></i>
-                        Facebook
-                      </button>
-                      <button class="main-btn danger-btn-outline m-2">
-                        <i class="lni lni-google mr-10"></i>
-                        Google
-                      </button>
-                    </div>
                     <p class="text-sm text-medium text-dark text-center">
                     ¿Ya tienes una cuenta? <a href="{{ route('login') }}">Entre</a>
                     </p>
