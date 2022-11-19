@@ -47,6 +47,7 @@
                   <th><h6>#</h6></th>
                   <th><h6>Clave</h6></th>
                   <th><h6>Información</h6></th>
+                  <th><h6>Ip</h6></th>
                   <th><h6>Creado</h6></th>
                   <th><h6>Actualizado</h6></th>
                   <th><h6>Acciones</h6></th>
@@ -63,6 +64,9 @@
                           </td>
                           <td class="min-width">
                             <p><?php echo $z->nombre; ?></p>
+                          </td>
+                          <td class="min-width">
+                            <p><?php echo $z->ip; ?></p>
                           </td>
                           <td class="min-width">
                             <p><?php echo $z->created_at; ?></p>

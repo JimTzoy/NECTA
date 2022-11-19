@@ -23,7 +23,9 @@ return new class extends Migration
             $table->string('Direccion');
             $table->string('Ciudad');
             $table->string('Descripcion');
-            $table->string('FechaContrato');
+            $table->date('FechaContrato');
+            $table->date('FechaInicio');
+            $table->date('FechaFin');
             $table->string('idAntena');
             $table->unsignedBigInteger('plan_id');
             $table->unsignedBigInteger('user_id');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,7 +34,7 @@ class ClienteController extends Controller
         $request->user()->authorizeRoles(['empresa']);
         $user_id[] = Auth::user();
         $id_user = $user_id[0]['id'];
-        $zn = Db::table('zonas')->select('id','clave','nombre')->where('user_id','=',$id_user)->get();
+        $zn = Db::table('zonas')->select('id','clave','ip','nombre')->where('user_id','=',$id_user)->get();
         $pl = Db::table('plans')->select('id','plan','informacion')->where('user_id','=',$id_user)->get();
         return view('clientes.create',['zn'=>$zn,'pl'=>$pl]);
     }
@@ -53,7 +54,9 @@ class ClienteController extends Controller
         $zn = Db::table('zonas')->where('id','=',$a)->value('clave');
         $contar = DB::table('clientes')->orderByDesc('id')->where('user_id','=',$id_user)->value('nocliente');
         $n = substr($contar, -3);
-
+        if ($n == null) {
+            $n = 0;
+        }
         $numero = $n + 1;
         if($numero >= 10) {
             if($numero >= 100){
@@ -75,6 +78,9 @@ class ClienteController extends Controller
         $Cliente->Ciudad = $request->ciudad;
         $Cliente->Descripcion = $request->descripcion;
         $Cliente->FechaContrato = $request->FechaContrato;
+        $Cliente->FechaInicio = $request->FechaContrato;
+        $ff = date("Y-m-d",strtotime($request->FechaContrato."+1 month"));
+        $Cliente->FechaFin = $ff;
         $Cliente->idAntena = $request->idantena;
         $Cliente->plan_id = $request->plan_id;
         $Cliente->zona_id = $request->zona_id;
@@ -102,11 +108,12 @@ class ClienteController extends Controller
     public function show(Request $request,$id)
     {
         $request->user()->authorizeRoles(['empresa']);
+        $idc = $id;
         $user_id[] = Auth::user();
         $cte = Cliente::find($id);
         $zn = Db::table('zonas')->select('id','clave','nombre')->get();
-        var_dump($cte);
-        return view('clientes.show',compact('cte'),['zn'=>$zn]);
+        $pago = DB::table('pagos')->select('id','cantidad','fecha','tipo','created_at','updated_at')->where('cliente_id','=',$id)->orderBy('fecha','desc')->paginate(5);
+        return view('clientes.show',compact('cte','idc'),['zn'=>$zn,'pg'=>$pago]);
     }
 
     /**
