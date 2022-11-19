@@ -54,48 +54,48 @@
                   <th><h6>Acciones</h6></th>
                 </tr>
               </thead>
-              <tbody>
-                <?php foreach ($ci as $key=>$c) { ?>
-                        <tr>
-                          <td class="min-width">
-                           <p><?php echo $key+1; ?></p>
-                          </td>
-                          <td class="min-width">
-                            <p><?php echo $c->NoCliente; ?></p>
-                          </td>
-                          <td class="min-width">
-                            <p><?php echo $c->Nombre; ?></p>
-                          </td>
-                          <td class="min-width">
-                            <p><?php echo $c->ApPaterno; ?></p>
-                          </td>
-                          <td class="min-width">
-                            <p><?php echo $c->ApMaterno; ?></p>
-                          </td>
-                          <td class="min-width">
-                            <p><?php echo $c->created_at; ?></p>
-                          </td>
-                          <td class="min-width">
-                            <p><?php echo $c->updated_at; ?></p>
-                          </td>
-                          <td class="min-width">
-                            <div class="action" style="font-size: 30px;">
-                              <a style="padding: 0px 6px 0px 0px;" href="{{action('App\Http\Controllers\ClienteController@show', $c->id)}}" class="text-primary"><li class="lni lni-eye"></li></a>
-                              <a href="{{action('App\Http\Controllers\ClienteController@edit', $c->id)}}" class="text-success"><li class="lni lni-write"></li></a>
-                                <form action="{{action('App\Http\Controllers\ClienteController@destroy', $c->id)}}" method="post">
-                                  {{csrf_field()}}
-                                  <input name="_method" type="hidden" value="DELETE">
-                                  <button class="text-danger" type="submit"><i style="font-size: 30px;" class="lni lni-trash-can"> </i></button>
-                                </form>
-                            </div>
-                          </td>
-                        </tr>
-                <?php } ?>
-                        <!-- end table row -->
-              </tbody>
-                    </table>
+                <tbody>
+                    <?php foreach ($ci as $key=>$c) { ?>
+                          <tr>
+                            <td class="min-width">
+                            <p><?php echo $key+1; ?></p>
+                            </td>
+                            <td class="min-width">
+                              <p><?php echo $c->NoCliente; ?></p>
+                            </td>
+                            <td class="min-width">
+                              <p><?php echo $c->Nombre; ?></p>
+                            </td>
+                            <td class="min-width">
+                              <p><?php echo $c->ApPaterno; ?></p>
+                            </td>
+                            <td class="min-width">
+                              <p><?php echo $c->ApMaterno; ?></p>
+                            </td>
+                            <td class="min-width">
+                              <p><?php echo $c->created_at; ?></p>
+                            </td>
+                            <td class="min-width">
+                              <p><?php echo $c->updated_at; ?></p>
+                            </td>
+                            <td class="min-width">
+                              <div class="action" style="font-size: 30px;">
+                                <a style="padding: 0px 6px 0px 0px;" href="{{action('App\Http\Controllers\ClienteController@show', $c->id)}}" class="text-primary"><li class="lni lni-eye"></li></a>
+                                <a href="{{action('App\Http\Controllers\ClienteController@edit', $c->id)}}" class="text-success"><li class="lni lni-write"></li></a>
+                                  <form action="{{action('App\Http\Controllers\ClienteController@destroy', $c->id)}}" method="post">
+                                    {{csrf_field()}}
+                                    <input name="_method" type="hidden" value="DELETE">
+                                    <button class="text-danger" type="submit"><i style="font-size: 30px;" class="lni lni-trash-can"> </i></button>
+                                  </form>
+                              </div>
+                            </td>
+                          </tr>
+                    <?php } ?>
+                          <!-- end table row -->
+                  </tbody>
+              </table>
                     <!-- end table -->
-                  </div>
+            </div>
                 </div>
                 <!-- end card -->
               </div>

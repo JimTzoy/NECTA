@@ -19,7 +19,7 @@ class ZonaController extends Controller
         $request->user()->authorizeRoles(['empresa']);
         $user_id[] = Auth::user();
         $id_user = $user_id[0]['id'];
-        $zn = Db::table('zonas')->select('id','clave', 'nombre','created_at','updated_at')->where('user_id','=',$id_user)->get();
+        $zn = Db::table('zonas')->select('id','clave', 'nombre','ip','created_at','updated_at')->where('user_id','=',$id_user)->get();
         return view('zonas.index',['zn'=>$zn]);
     }
 
@@ -47,6 +47,7 @@ class ZonaController extends Controller
         $zona = new Zona();
         $zona->clave = $request->clave;
         $zona->nombre = $request->nombre;
+        $zona->ip =$request->ip;
         $zona->user_id = $id_user;
         $zona->save();
         if ($zona == null) {

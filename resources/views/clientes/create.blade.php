@@ -105,18 +105,9 @@
                 @enderror
               </div>
               <div class="input-style-2">
-                <input id="FechaContrato" type="text" class="form-control @error('FechaContrato') is-invalid @enderror" name="FechaContrato" value="{{ old('FechaContrato') }}" required autocomplete="FechaContrato" autofocus placeholder="Fecha Contrato">
+                <input id="FechaContrato" type="date" class="form-control @error('FechaContrato') is-invalid @enderror" name="FechaContrato" value="{{ old('FechaContrato') }}" required autocomplete="FechaContrato" autofocus placeholder="Fecha Contrato">
                 <span class="icon"> <i class="lni lni-write"></i> </span>
                 @error('FechaContrato')
-                  <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                  </span>
-                @enderror
-              </div>
-              <div class="input-style-2">
-                <input id="idantena" type="text" class="form-control @error('idantena') is-invalid @enderror" name="idantena" value="{{ old('idantena') }}" required autocomplete="idantena" autofocus placeholder="IP Antena">
-                <span class="icon"> <i class="lni lni-dollar"></i> </span>
-                @error('idantena')
                   <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                   </span>
@@ -143,6 +134,15 @@
                         @endif
                     </div>
                 </div>
+                <div class="input-style-2">
+                <input id="idantena" type="text" class="form-control @error('idantena') is-invalid @enderror" name="idantena" value="192.168." required autocomplete="idantena" autofocus placeholder="IP Antena">
+                <span class="icon"> <i class="lni lni-dollar"></i> </span>
+                @error('idantena')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+              </div>
                 <div class="select-style-2">
                     <div class="select-position">
                       <select id="plan_id" class="form-control @error('plan_id') is-invalid @enderror" name="plan_id" value="{{ old('plan_id') }}" required autocomplete="plan_id">

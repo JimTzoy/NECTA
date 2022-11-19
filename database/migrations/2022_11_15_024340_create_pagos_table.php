@@ -13,15 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('zonas', function (Blueprint $table) {
+        Schema::create('pagos', function (Blueprint $table) {
             $table->id();
-            $table->string('Clave');
-            $table->string('Nombre');
-            $table->string('Ip');
+            $table->integer('cantidad');
+            $table->date('fecha');
+            $table->string('observaciones');
+            $table->string('tipo');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
             ->references('id')
             ->on('users')
+            ->onDelete('cascade');
+            $table->unsignedBigInteger('cliente_id');
+            $table->foreign('cliente_id')
+            ->references('id')
+            ->on('clientes')
             ->onDelete('cascade');
             $table->timestamps();
         });
@@ -34,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('zonas');
+        Schema::dropIfExists('pagos');
     }
 };

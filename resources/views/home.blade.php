@@ -30,6 +30,7 @@
             <!-- end row -->
     </div>
     <!-- ========== title-wrapper end ========== -->
+    @if(Auth::user()->hasRole('admin'))
     <div class="row">
             <div class="col-xl-3 col-lg-4 col-sm-6">
               <div class="icon-card mb-30">
@@ -37,7 +38,7 @@
                   <i class="lni lni-cart-full"></i>
                 </div>
                 <div class="content">
-                  <h6 class="mb-10">New Orders</h6>
+                  <h6 class="mb-10">Nuevos ventas</h6>
                   <h3 class="text-bold mb-10">34567</h3>
                   <p class="text-sm text-success">
                     <i class="lni lni-arrow-up"></i> +2.00%
@@ -54,7 +55,7 @@
                   <i class="lni lni-dollar"></i>
                 </div>
                 <div class="content">
-                  <h6 class="mb-10">Total Income</h6>
+                  <h6 class="mb-10">Total de clientes</h6>
                   <h3 class="text-bold mb-10">$74,567</h3>
                   <p class="text-sm text-success">
                     <i class="lni lni-arrow-up"></i> +5.45%
@@ -71,7 +72,7 @@
                   <i class="lni lni-credit-cards"></i>
                 </div>
                 <div class="content">
-                  <h6 class="mb-10">Total Expense</h6>
+                  <h6 class="mb-10">Clientes atrasados</h6>
                   <h3 class="text-bold mb-10">$24,567</h3>
                   <p class="text-sm text-danger">
                     <i class="lni lni-arrow-down"></i> -2.00%
@@ -88,7 +89,7 @@
                   <i class="lni lni-user"></i>
                 </div>
                 <div class="content">
-                  <h6 class="mb-10">New User</h6>
+                  <h6 class="mb-10">Ingresos Mensuales</h6>
                   <h3 class="text-bold mb-10">34567</h3>
                   <p class="text-sm text-danger">
                     <i class="lni lni-arrow-down"></i> -25.00%
@@ -101,6 +102,79 @@
             <!-- End Col -->
           </div>
           <!-- End Row -->
+          @else
+          @if(Auth::user()->hasRole('empresa'))
+          <div class="row">
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="icon-card mb-30">
+                <div class="icon purple">
+                  <i class="lni lni-user"></i>
+                </div>
+                <div class="content">
+                  <h6 class="mb-10">Nuevos clientes</h6>
+                  <h3 class="text-bold mb-10"> <?php foreach($c as $v){ echo $v->total;} ?></h3>
+                  <p class="text-sm text-success">
+                    <i class="lni lni-arrow-up"></i>
+                    <span class="text-gray">(30 Dias)</span>
+                  </p>
+                </div>
+              </div>
+              <!-- End Icon Cart -->
+            </div>
+            <!-- End Col -->
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="icon-card mb-30">
+                <div class="icon success">
+                  <i class="lni lni-users"></i>
+                </div>
+                <div class="content">
+                  <h6 class="mb-10">Total de clientes</h6>
+                  <h3 class="text-bold mb-10"> <?php foreach($ct as $vt){ echo $vt->total;} ?></h3>
+                  <p class="text-sm text-success">
+                    <span class="text-gray">Incremento</span>
+                  </p>
+                </div>
+              </div>
+              <!-- End Icon Cart -->
+            </div>
+            <!-- End Col -->
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="icon-card mb-30">
+                <div class="icon primary">
+                  <i class="lni lni-user"></i>
+                </div>
+                <div class="content">
+                  <h6 class="mb-10">Clientes atrasados</h6>
+                  <h3 class="text-bold mb-10"><?php foreach($at as $va){ echo $va->total;} ?></h3>
+                  <p class="text-sm text-danger">
+                    <a href="{{ url('/verlista') }}"><span class="text-gray">Ver Lista</span></a>
+                  </p>
+                </div>
+              </div>
+              <!-- End Icon Cart -->
+            </div>
+            <!-- End Col -->
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="icon-card mb-30">
+                <div class="icon orange">
+                  <i class="lni lni-dollar"></i>
+                </div>
+                <div class="content">
+                  <h6 class="mb-10">Ingresos Mensuales</h6>
+                  <h3 class="text-bold mb-10"><?php foreach($t as $t){?><?php echo "$ ".$t->u; } ?></h3>
+                  <p class="text-sm text-danger">
+                    <span class="text-gray">(30 Dias)</span>
+                  </p>
+                </div>
+              </div>
+              <!-- End Icon Cart -->
+            </div>
+            <!-- End Col -->
+          </div>
+          <!-- End Row -->
+          @else
+          @endif
+          @endif
 </div>
 <li class="nav-item">
             <a href="{{ url('/home') }}">
