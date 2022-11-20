@@ -5,15 +5,25 @@
     <!-- ========== title-wrapper start ========== -->
   <div class="title-wrapper pt-30">
     <div class="row align-items-center">
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="title d-flex align-items-center flex-wrap mb-30">
           <h2 class="mr-40">Clientes</h2>
           <a href="{{route('clientes.create')}}" class="main-btn primary-btn btn-hover btn-sm">
           <i class="lni lni-plus mr-5"></i>Nuevo</a>
         </div>
       </div>
+      <div class="col-md-4">
+        <div class="header-search d-none d-md-flex">
+          <form>
+            <div class="input-style-3">
+              <input type="text" placeholder="Buscar" name="busqueda" id="busqueda" />
+              <span class="icon"><i class="lni lni-search-alt"></i></span>
+            </div>
+          </form>
+        </div>
+      </div>
       <!-- end col -->
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="breadcrumb-wrapper mb-30">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -94,6 +104,7 @@
                           <!-- end table row -->
                   </tbody>
               </table>
+              {{ $ci->withQueryString()->links() }}
                     <!-- end table -->
             </div>
                 </div>
