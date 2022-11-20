@@ -122,9 +122,15 @@ class ClienteController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cliente $cliente)
+    public function edit(Request $request,$id)
     {
-        //
+        $request->user()->authorizeRoles(['empresa']);
+        $user_id[] = Auth::user();
+        $id_user = $user_id[0]['id'];
+        $cliente =  Cliente::find($id);
+        $zn = Db::table('zonas')->select('id','clave','ip','nombre')->where('user_id','=',$id_user)->get();
+        $pl = Db::table('plans')->select('id','plan','informacion')->where('user_id','=',$id_user)->get();
+        return view('clientes.edit', compact('cliente'),['zn'=>$zn,'pl'=>$pl]);
     }
 
     /**
@@ -134,9 +140,22 @@ class ClienteController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request, $id)
     {
-        //
+        $request->user()->authorizeRoles(['empresa']);
+        $updates = Cliente::find($id)->update($request->all());
+        if ($updates == TRUE) {
+            $notification = array(
+                'message' => 'CONTRATO ACTUALIZADO EXITOSAMENTE', 
+                'alert-type' => 'success');
+         return redirect()->action('App\Http\Controllers\ClienteController@show', [$id])->with($notification);  
+        }else{
+            $notification = array(
+                'message' => 'NADA ACTUALIZADO', 
+                'alert-type' => 'danger');
+            return redirect()->action('App\Http\Controllers\ClienteController@show', [$id])->with($notification);  
+        }
+        
     }
 
     /**

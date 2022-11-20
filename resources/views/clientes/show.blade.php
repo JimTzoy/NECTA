@@ -80,6 +80,9 @@
                 <li>
                   <a href="#0" class="main-btn danger-btn rounded-md btn-hover">Suspender</a>
                 </li>
+                <li>
+                  <a href="{{action('App\Http\Controllers\ClienteController@edit', $cte)}}" class="main-btn success-btn rounded-md btn-hover">Actualizar</a>
+                </li>
             </ul>
           </div>
         </div>
