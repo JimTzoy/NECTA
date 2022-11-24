@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Empresa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmpresaController extends Controller
 {
@@ -35,7 +36,33 @@ class EmpresaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->user()->authorizeRoles(['empresa']);
+        $user_id[] = Auth::user();
+        $id_user = $user_id[0]['id'];
+
+        $empresa = new Empresa();
+        $empresa->NomComercial = $request->NomComercial;
+        $empresa->NomFiscal = $request->NomFiscal;
+        $empresa->Rfc = $request->Rfc;
+        $empresa->Telefono = $request->Telefono;
+        $empresa->Direccion = $request->Direccion;
+        $empresa->Ciudad = $request->Ciudad;
+        $empresa->CodigoPostal = $request->CodigoPostal;
+        $empresa->Pais = $request->Pais;
+        $empresa->Correo = $request->Correo;
+        $empresa->user_id = $id_user;
+        $empresa->save();
+        if ($empresa == null) {
+            $notification = array(
+                   'message' => 'ERROR. Información de la empresa no actualizado', 
+                   'alert-type' => 'error'  );
+             return back()->with($notification);
+       }else{
+        $notification = array(
+                   'message' => 'EXITO. Información actualizada', 
+                   'alert-type' => 'success'  );
+        return back()->with($notification);
+       }
     }
 
     /**
@@ -67,9 +94,22 @@ class EmpresaController extends Controller
      * @param  \App\Models\Empresa  $empresa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Empresa $empresa)
+    public function update(Request $request, $id)
     {
-        //
+        $request->user()->authorizeRoles(['empresa']);
+        $updates = Empresa::find($id)->update($request->all());
+        if ($updates == null) {
+            $notification = array(
+                   'message' => 'ERROR. Información de la empresa no actualizado', 
+                   'alert-type' => 'error'  );
+             return back()->with($notification);
+       }else{
+        $notification = array(
+                   'message' => 'EXITO. Información actualizada', 
+                   'alert-type' => 'success'  );
+        return back()->with($notification);
+       }
+
     }
 
     /**
