@@ -17,7 +17,9 @@ class PlanController extends Controller
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['empresa']);
-        $pl = Db::table('plans')->select('id','plan','precio', 'informacion','created_at','updated_at')->get();
+        $user_id[] = Auth::user();
+        $id_user = $user_id[0]['id'];
+        $pl = Db::table('plans')->select('id','plan','precio', 'informacion','created_at','updated_at')->where('user_id','=',$id_user)->get();
         return view('plans.index', ['pl' => $pl]);
     }
 
