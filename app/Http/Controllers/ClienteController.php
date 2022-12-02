@@ -24,7 +24,6 @@ class ClienteController extends Controller
         //$ci = Db::table('clientes')->select('id','NoCliente','Nombre','ApPaterno','ApMaterno','Telefono','Direccion','Ciudad','Descripcion','FechaContrato','idAntena','plan_id','user_id','zona_id','created_at','updated_at')->where('user_id','==',$id_user)->orwhere('Nombre','like', "%$v%")->orwhere('ApPaterno','like', "%$v%")->orwhere('ApMaterno','like', "%$v%")->paginate(10);
         //var_dump($ci);
         $ci = Db::table('clientes')->select('id','NoCliente','Nombre','ApPaterno','ApMaterno','Telefono','Direccion','Ciudad','Descripcion','FechaContrato','idAntena','plan_id','user_id','zona_id','created_at','updated_at')->where('user_id','=',$id_user)->where([['Nombre','like', "%$v%"],['ApPaterno','like', "%$v%"],['ApMaterno','like', "%$v%"]])->paginate(10);
-        var_dump($ci);
         return view('clientes.index',['ci'=>$ci]);
     }
 
