@@ -7,6 +7,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ZonaController;
 use App\Http\Controllers\AntenaController;
 use App\Http\Controllers\PagosController;
+use App\Http\Controllers\UsuariosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,3 +51,5 @@ Route::resource('clientes', ClienteController::class);
 Route::resource('antenas', AntenaController::class);
 
 Route::resource('pagos', PagosController::class);
+
+Route::resource('usuarios', UsuariosController::class);
