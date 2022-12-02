@@ -29,7 +29,7 @@
         </a>
       </div>
       <nav class="sidebar-nav">
-        <ul>
+      <ul>
           <li class="nav-item active">
             <a href="{{ url('/home') }}">
               <span class="icon">
@@ -40,9 +40,54 @@
                 </svg>
               </span>
               <span class="text">Dashboard</span>
-            </a>
-            
+            </a>  
           </li>
+          @if(Auth::user()->hasRole('admin'))
+          <li class="nav-item">
+            <a href="{{ url('/home') }}">
+              <span class="icon" width="24" height="22" viewBox="0 0 22 22">
+                <span class="lni lni-users"></span>
+              </span>
+              <span class="text">Usuarios</span>
+            </a> 
+          </li>
+          @else
+          @if(Auth::user()->hasRole('empresa'))
+          <li class="nav-item">
+            <a href="{{route('plans.index')}}">
+              <span class="icon" width="24" height="22" viewBox="0 0 22 22">
+                <span class="lni lni-agenda"></span>
+              </span>
+              <span class="text">Planes</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('zonas.index')}}">
+              <span class="icon" width="24" height="22" viewBox="0 0 22 22">
+                <span class="lni lni-agenda"></span>
+              </span>
+              <span class="text">Zonas</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('clientes.index')}}">
+              <span class="icon" width="24" height="22" viewBox="0 0 22 22">
+                <span class="lni lni-users"></span>
+              </span>
+              <span class="text">Clientes</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('antenas.index')}}">
+              <span class="icon" width="24" height="22" viewBox="0 0 22 22">
+                <span class="lni lni-atlassian"></span>
+              </span>
+              <span class="text">Antenas</span>
+            </a>
+          </li>
+          @else
+          @endif
+          @endif
           <span class="divider"><hr /></span>
         </ul>
       </nav>

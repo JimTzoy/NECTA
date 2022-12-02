@@ -45,7 +45,7 @@
           </li>
           @if(Auth::user()->hasRole('admin'))
           <li class="nav-item">
-            <a href="{{ url('/home') }}">
+            <a href="{{ route('usuarios.index') }}">
               <span class="icon" width="24" height="22" viewBox="0 0 22 22">
                 <span class="lni lni-users"></span>
               </span>

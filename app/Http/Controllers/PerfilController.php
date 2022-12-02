@@ -4,17 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\Perfil;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PerfilController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('perfil.index');
+        $request->user()->authorizeRoles(['empresa','user','admin','cliente']);
+        $user_id[] = Auth::user();
+        $id_user = $user_id[0]['id'];
+        $empresa = DB::table('empresas')->select('id','NomComercial' ,'NomFiscal','Rfc','Telefono','Direccion','Ciudad','CodigoPostal','Pais','Correo','user_id','created_at','updated_at')->where('user_id','=',$id_user)->get();
+        $emp = DB::table('empresas')->select('id')->where('user_id','=',$id_user)->first();
+        return view('perfil.index',compact('empresa','emp'));
     }
 
     /**

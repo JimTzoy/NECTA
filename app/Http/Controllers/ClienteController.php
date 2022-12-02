@@ -20,7 +20,11 @@ class ClienteController extends Controller
         $request->user()->authorizeRoles(['empresa']);
         $user_id[] = Auth::user();
         $id_user = $user_id[0]['id'];
-        $ci = Db::table('clientes')->select('id','NoCliente','Nombre','ApPaterno','ApMaterno','Telefono','Direccion','Ciudad','Descripcion','FechaContrato','idAntena','plan_id','user_id','zona_id','created_at','updated_at')->where('user_id','=',$id_user)->get();
+        $v = $request->get('busqueda');
+        //$ci = Db::table('clientes')->select('id','NoCliente','Nombre','ApPaterno','ApMaterno','Telefono','Direccion','Ciudad','Descripcion','FechaContrato','idAntena','plan_id','user_id','zona_id','created_at','updated_at')->where('user_id','==',$id_user)->orwhere('Nombre','like', "%$v%")->orwhere('ApPaterno','like', "%$v%")->orwhere('ApMaterno','like', "%$v%")->paginate(10);
+        //var_dump($ci);
+        $ci = Db::table('clientes')->select('id','NoCliente','Nombre','ApPaterno','ApMaterno','Telefono','Direccion','Ciudad','Descripcion','FechaContrato','idAntena','plan_id','user_id','zona_id','created_at','updated_at')->where('user_id','=',$id_user)->where([['Nombre','like', "%$v%"],['ApPaterno','like', "%$v%"],['ApMaterno','like', "%$v%"]])->paginate(10);
+        var_dump($ci);
         return view('clientes.index',['ci'=>$ci]);
     }
 
