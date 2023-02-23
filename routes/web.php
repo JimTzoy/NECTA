@@ -6,6 +6,7 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ZonaController;
 use App\Http\Controllers\AntenaController;
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,10 +32,14 @@ Route::get('/portafolio', function () {
 Route::get('/acercade', function () {
     return view('acercade');
 });
+Route::get('/blog', function(){
+    return view('blog');
+});
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/ubiquitipost', [BlogController::class, 'ubiquitipost'])->name('ubiquitipost');
 Route::resource('plans', PlanController::class);
 
 Route::resource('empresa', EmpresaController::class);
@@ -46,3 +51,5 @@ Route::resource('perfil', PerfilController::class);
 Route::resource('clientes', ClienteController::class);
 
 Route::resource('antenas', AntenaController::class);
+
+Route::resource('blogs', BlogController::class);
