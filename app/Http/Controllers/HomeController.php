@@ -33,8 +33,8 @@ class HomeController extends Controller
         $fecha = $carbon->now();
         $f = $fecha->format('m');
         $ff = $fecha->format('Y-m-d');
-        $c = Db::table('clientes')->selectRaw('COUNT(*) as total')->whereMonth('FechaContrato','=',$f)->get();
-        $ct = Db::table('clientes')->selectRaw('COUNT(*) as total')->get();
+        $c = Db::table('clientes')->where('user_id','=',$id_user)->selectRaw('COUNT(*) as total')->whereMonth('FechaContrato','=',$f)->get();
+        $ct = Db::table('clientes')->where('user_id','=',$id_user)->selectRaw('COUNT(*) as total')->get();
         $t = DB::table('pagos')->where('user_id','=',$id_user)->whereMonth('Fecha','=',$f)->selectRaw('TRUNCATE(SUM(cantidad), 2) as u')->get();
         $at = Db::table('clientes')->where('user_id','=',$id_user)->where('fechaFin','<=',$ff)->selectRaw('COUNT(*) as total')->get();
         return view('home',compact('c','ct','t','at'));
