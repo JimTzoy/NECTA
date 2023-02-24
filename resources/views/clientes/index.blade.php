@@ -10,6 +10,8 @@
           <h2 class="mr-40">Clientes</h2>
           <a href="{{route('clientes.create')}}" class="main-btn primary-btn btn-hover btn-sm">
           <i class="lni lni-plus mr-5"></i>Nuevo</a>
+          <a href="{{route('imprimir')}}" class="main-btn primary-btn btn-hover btn-sm">
+            <i class="lni lni-plus mr-5"></i>Imprimir</a>
         </div>
       </div>
       <div class="col-md-4">

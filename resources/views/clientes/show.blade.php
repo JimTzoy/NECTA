@@ -1,6 +1,11 @@
 @extends('layouts.vistaa')
 
 @section('content')
+<style>
+  .oculto{
+	display: none;
+}
+</style>
 <input type="hidden" value="{{ $date = \Carbon\Carbon::now()}}">
 <div class="container-fluid">
     <!-- ========== title-wrapper start ========== -->
@@ -185,7 +190,7 @@
             <div class="col-lg-12">
               <!-- input style start -->
               <div class="">
-                <form class="form-horizontal" method="POST" action="{{ route('pagos.store') }}">
+                <form class="form-horizontal" id="frm1" method="POST" action="{{ route('pagos.store') }}">
                   {{ csrf_field() }}
                       <input type="hidden" name="idcliente" value="{{$idc}}">
                       <div class="input-style-2">
@@ -225,9 +230,37 @@
                       @enderror
                     </div>
                     <div class="input-style-2">
-                      <input id="tipo" type="text" class="form-control @error('tipo') is-invalid @enderror" name="tipo" value="{{ old('tipo') }}" required autocomplete="tipo" autofocus placeholder="tipo">
+                      <select id="tipo" class="form-control" name="tipo" value="{{ old('tipo') }}" required autofocus>
+                        <option value=""><---Seleccione una opción---></option>
+                        <?php
+                        foreach ($tp as $tipoPago) {
+                        echo "<option value=\"";
+                        echo $tipoPago->id;
+                        echo "\">";
+                        echo $tipoPago->name."  ";
+                        echo"</option>";
+                        }
+                        ?>
+                </select>
                       <span class="icon"> <i class="lni lni-dollar"></i> </span>
                       @error('tipo')
+                        <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
+                    </div>
+                    <div class="input-style-2 oculto efectivo">
+                      <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre') }}" placeholder="Nombre">
+                      <span class="icon"> <i class="lni lni-dollar"></i> </span>
+                      @error('fecha')
+                        <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
+                    </div>
+                    <div class="input-style-2 oculto banco">
+                      <input id="img" type="file" class="form-control" name="img" value="{{ old('img') }}" accept="image/*" ><span class="icon"> <i class="lni lni-information"></i> </span>
+                      @error('img')
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
                         </span>
@@ -249,4 +282,6 @@
     </div>
   </div>
 </div>
+
+
 @endsection

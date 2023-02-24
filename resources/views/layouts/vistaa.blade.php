@@ -371,7 +371,25 @@
                 break;
         }
     @endif
-  
+ $('#tipo').on('change',function(){
+	var selectValor = $(this).val();
+  const v = document.querySelector('#frm1');
+	if (selectValor == '1') {
+			$('.efectivo').removeClass('oculto');
+	}else {
+		$('.efectivo').addClass('oculto');
+	}
+  if (selectValor == '2') {
+			$('.banco').removeClass('oculto');
+      v.setAttribute('accept-charset','utf-8');
+      v.setAttribute('enctype','multipart/form-data');
+	}else {
+		$('.banco').addClass('oculto');
+    v.removeAttribute('accept-charset'); 
+    v.removeAttribute('enctype'); 
+	}
+});
+
 </script>
 @yield('javascript')
 </body>

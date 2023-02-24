@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\Pagos;
+use App\Models\TipoPago;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -66,7 +67,26 @@ class PagosController extends Controller
         $cliente->FechaInicio = $request->FechaFin;
         $cliente->FechaFin = $ffa;
         $cliente->save();
-
+        if($request->tipo == 1){
+            $cliente->tipopago()->attach(TipoPago::where('id', $request->tipo)->first(),['nombre'=>$request->nombre]);
+        }else{
+            $imagen = $request['img'];
+            //COMPRUEBA QUE SE AYA SELECCIONADO UNA IMAGEN
+            if($imagen == null){
+            $notification = array(
+                'message' => 'ERROR. NECESITA ELEGIR UNA IMAGEN', 
+                'alert-type' => 'error'  );
+            return back()->with($notification);
+            }else{
+            //OPTIENE EL NOMBRE DE LA IMAGEN
+            $nombre = time().$imagen->getClientOriginalName();
+            //LO MUEVE A LA CARPETA U LO GUARDA CON EL NOMBRE OPTENIDO
+            $imagen->move('img/comprobantes/', $nombre);
+            //$imagen->move(public_path().'/img/perfil/',$nombre);
+            $cliente->tipopago()->attach(TipoPago::where('id', $request->tipo)->first(),['img'=>$nombre]);
+            }
+        }
+        
         if ($cliente == null) {
              $notification = array(
                     'message' => 'ERROR. El pago no se ha registrado', 
