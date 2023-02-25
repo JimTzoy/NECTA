@@ -197,7 +197,7 @@ return [
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
 
     ],
-
+    
     /*
     |--------------------------------------------------------------------------
     | Class Aliases

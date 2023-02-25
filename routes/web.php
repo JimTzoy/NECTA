@@ -52,3 +52,14 @@ Route::resource('clientes', ClienteController::class);
 Route::resource('antenas', AntenaController::class);
 
 Route::resource('pagos', PagosController::class);
+
+Route::get('clientes/formato/{id}', [
+    'as' => 'formato', 'uses' => 'App\Http\Controllers\ClienteController@formato'
+]);
+Route::get('clientes/LISTA_CLIENTES/{id}', [
+    'as' => 'LISTA_CLIENTES', 'uses' => 'App\Http\Controllers\ClienteController@LISTA_CLIENTES'
+]);
+
+Route::name('print')->get('/clientess/imprimir/{id}', [
+    'as' =>'imprimir','uses'=>'App\Http\Controllers\ClienteController@imprimir'
+]);

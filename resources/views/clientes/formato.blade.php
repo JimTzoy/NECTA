@@ -1,31 +1,21 @@
-@extends('layouts.app')
+@extends('layouts.vedit')
 
 @section('content')
 <div class="container-fluid">
     <!-- ========== title-wrapper start ========== -->
   <div class="title-wrapper pt-30">
     <div class="row align-items-center">
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="title d-flex align-items-center flex-wrap mb-30">
           <h2 class="mr-40">Clientes</h2>
-          <a href="{{route('clientes.create')}}" class="main-btn primary-btn btn-hover btn-sm">
-          <i class="lni lni-plus mr-5"></i>Nuevo</a>
-          <a href="{{url('clientes/formato',$id_user)}}" class="main-btn info-btn btn-hover btn-sm">
+          <a href="{{route('imprimir',$id_user)}}" class="main-btn info-btn btn-hover btn-sm">
             <i class="lni lni-printer mr-5"></i>Imprimir</a>
         </div>
       </div>
-      <div class="col-md-3">
-        <div class="header-search d-none d-md-flex">
-          <form>
-            <div class="input-style-3">
-              <input type="text" placeholder="Buscar" name="busqueda" id="busqueda" />
-              <span class="icon"><i class="lni lni-search-alt"></i></span>
-            </div>
-          </form>
-        </div>
+      <div class="col-md-4">
       </div>
       <!-- end col -->
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="breadcrumb-wrapper mb-30">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -61,9 +51,11 @@
                   <th><h6>Nombre</h6></th>
                   <th><h6>Apellido Paterno</h6></th>
                   <th><h6>Apellido Materno</h6></th>
-                  <th><h6>Creado</h6></th>
-                  <th><h6>Actualizado</h6></th>
-                  <th><h6>Acciones</h6></th>
+                  <th><h6>Fecha Inicio</h6></th>
+                  <th><h6>Fecha Fin</h6></th>
+                  <th><h6>Dirección</h6></th>
+                  <th><h6>Telefono</h6></th>
+                  <th><h6>Pago</h6></th>
                 </tr>
               </thead>
                 <tbody>
@@ -85,28 +77,29 @@
                               <p><?php echo $c->ApMaterno; ?></p>
                             </td>
                             <td class="min-width">
-                              <p><?php echo $c->created_at; ?></p>
+                              <p><?php echo $c->FechaInicio; ?></p>
                             </td>
                             <td class="min-width">
-                              <p><?php echo $c->updated_at; ?></p>
+                              <p><?php echo $c->FechaFin; ?></p>
                             </td>
                             <td class="min-width">
-                              <div class="action" style="font-size: 30px;">
-                                <a style="padding: 0px 6px 0px 0px;" href="{{action('App\Http\Controllers\ClienteController@show', $c->id)}}" class="text-primary"><li class="lni lni-eye"></li></a>
-                                <a href="{{action('App\Http\Controllers\ClienteController@edit', $c->id)}}" class="text-success"><li class="lni lni-write"></li></a>
-                                  <form action="{{action('App\Http\Controllers\ClienteController@destroy', $c->id)}}" method="post">
-                                    {{csrf_field()}}
-                                    <input name="_method" type="hidden" value="DELETE">
-                                    <button class="text-danger" type="submit"><i style="font-size: 30px;" class="lni lni-trash-can"> </i></button>
-                                  </form>
-                              </div>
+                                <p><?php echo $c->Direccion; ?> </p>
+                            </td>
+                            <td class="min-width">
+                                <p><?php echo $c->Telefono; ?></p>
+                            </td>
+                            <td class="min-width">
+                                <?php foreach ($pl as $key=>$p) { 
+                                    if($p->id == $c->plan_id){
+                                        echo "$ ".$p->precio." MXN";
+                                    }
+                                } ?>
                             </td>
                           </tr>
                     <?php } ?>
                           <!-- end table row -->
                   </tbody>
               </table>
-              {{ $ci->withQueryString()->links() }}
                     <!-- end table -->
             </div>
                 </div>

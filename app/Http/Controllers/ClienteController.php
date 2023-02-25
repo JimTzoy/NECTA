@@ -24,8 +24,8 @@ class ClienteController extends Controller
         //$ci = Db::table('clientes')->select('id','NoCliente','Nombre','ApPaterno','ApMaterno','Telefono','Direccion','Ciudad','Descripcion','FechaContrato','idAntena','plan_id','user_id','zona_id','created_at','updated_at')->where('user_id','==',$id_user)->orwhere('Nombre','like', "%$v%")->orwhere('ApPaterno','like', "%$v%")->orwhere('ApMaterno','like', "%$v%")->paginate(10);
         //var_dump($ci);
         $ci = Db::table('clientes')->select('id','NoCliente','Nombre','ApPaterno','ApMaterno','Telefono','Direccion','Ciudad','Descripcion','FechaContrato','idAntena','plan_id','user_id','zona_id','created_at','updated_at')->where('user_id','=',$id_user)->where([['Nombre','like', "%$v%"],['ApPaterno','like', "%$v%"],['ApMaterno','like', "%$v%"]])->paginate(10);
-        var_dump($ci);
-        return view('clientes.index',['ci'=>$ci]);
+    
+        return view('clientes.index',compact('id_user'),['ci'=>$ci]);
     }
 
     /**
@@ -176,5 +176,52 @@ class ClienteController extends Controller
             'message' => 'PAGO ELIMINADO EXITOSAMENTE', 
             'alert-type' => 'success');
         return back()->with($notification);
+    }
+
+    /**
+     * FUNCION PARA MOSTRAR LA VISTA A IMPRIMIR DE LOS CLIENTES
+     * 
+     */
+    public function formato(Request $request, $id){
+        setlocale(LC_ALL,"es_ES"); 
+        Carbon::setLocale('es');
+        $user_id[] = Auth::user();
+        $id_user = $user_id[0]['id'];
+        $request->user()->authorizeRoles(['empresa']);
+        $ci = Db::table('clientes')->where('user_id','=',$id_user)->get();
+        $pl = Db::table('plans')->select('id','precio')->where('user_id','=',$id_user)->get();
+        return view('clientes.formato',compact('id_user'),['ci'=>$ci,'pl'=>$pl]);
+    }
+    /**
+     * FUNCION PARA MOSTRAR LA VISTA A IMPRIMIR DE LOS CLIENTES
+     * 
+     */
+    public function LISTA_CLIENTES(Request $request, $id){
+        setlocale(LC_ALL,"es_ES"); 
+        Carbon::setLocale('es');
+        $user_id[] = Auth::user();
+        $id_user = $user_id[0]['id'];
+        $request->user()->authorizeRoles(['empresa']);
+        $ci = Db::table('clientes')->where('user_id','=',$id_user)->get();
+        $pl = Db::table('plans')->select('id','precio')->where('user_id','=',$id_user)->get();
+        return view('clientes.LISTA_CLIENTES',compact('id_user'),['ci'=>$ci,'pl'=>$pl]);
+    }
+    /**
+     * FUNCION PARA IMPRIMIR LA VISTA FORMATO
+     */
+    public function imprimir(Request $request, $id){
+        setlocale(LC_ALL,"es_ES"); 
+    Carbon::setLocale('es');
+    $request->user()->authorizeRoles(['empresa']);
+    $user_id[] = Auth::user();
+        $id_user = $user_id[0]['id'];
+        $request->user()->authorizeRoles(['empresa']);
+        $ci = Db::table('clientes')->where('user_id','=',$id_user)->get();
+        $pl = Db::table('plans')->select('id','precio')->where('user_id','=',$id_user)->get();
+    
+    $pdf = \PDF::loadView('clientes.LISTA_CLIENTES', compact('id_user'), ['ci'=>$ci,'pl'=>$pl])->setPaper('letter', 'landscape');
+
+    return $pdf->download('LISTA_CLIENTES'.'.pdf');
+    
     }
 }
