@@ -1,6 +1,14 @@
 @extends('layouts.vistaa')
 
 @section('content')
+<style>
+  .text2{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.23em;
+    color: #254f5a;
+
+  }
+</style>
 <input type="hidden" value="{{ $date = \Carbon\Carbon::now()}}">
 <div class="container-fluid">
     <!-- ========== title-wrapper start ========== -->
@@ -8,7 +16,7 @@
         <div class="row align-items-center">
             <div class="col-md-6">
                 <div class="titlemb-30">
-                    <h2>Información de los pagos</h2>
+                    <h2>Información del pago</h2>
                 </div>
             </div>
             <!-- end col -->
@@ -20,7 +28,7 @@
                                 <a href="{{ url('/home') }}">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                <a href="{{route('pagos.index')}}">Pagos</a>
+                                <a href="{{action('App\Http\Controllers\ClienteController@show',$cte->id)}}">Pagos</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
                                 Ver
@@ -34,205 +42,66 @@
             <!-- end row -->
     </div>
     <!-- ========== title-wrapper end ========== -->
-          <!-- Invoice Wrapper Start -->
-          <div class="invoice-wrapper">
-            <div class="row">
-              <div class="col-12">
-                <div class="invoice-card card-style mb-30">
-                  <div class="invoice-header">
-                    <div class="invoice-for">
-                      <h2 class="mb-10">Invoice</h2>
-                      <p class="text-sm">
-                        Admin Dashboard Design & Development
-                      </p>
-                    </div>
-                    <div class="invoice-logo">
-                      <img src="assets/images/invoice/uideck-logo.svg" alt="" />
-                    </div>
-                    <div class="invoice-date">
-                      <p><span>Date Issued:</span> 20/02/2024</p>
-                      <p><span>Date Due:</span> 20/02/2028</p>
-                      <p><span>Order ID:</span> #5467</p>
-                    </div>
-                  </div>
-                  <div class="invoice-address">
-                    <div class="address-item">
-                      <h5 class="text-bold">From</h5>
-                      <h1>John Doe</h1>
-                      <p class="text-sm">
-                        3891 Ranchview Dr. Richardson, California 62639
-                      </p>
-                      <p class="text-sm">
-                        <span class="text-medium">Email:</span>
-                        admin@example.com
-                      </p>
-                    </div>
-                    <div class="address-item">
-                      <h5 class="text-bold">To</h5>
-                      <h1>Santa Gosh</h1>
-                      <p class="text-sm">
-                        2972 Westheimer Rd. Santa Ana, Illinois 85486
-                      </p>
-                      <p class="text-sm">
-                        <span class="text-medium">Email:</span>
-                        admin@example.com
-                      </p>
-                    </div>
-                  </div>
-                  <div class="table-responsive">
-                    <table class="invoice-table table">
-                      <thead>
-                        <tr>
-                          <th class="service">
-                            <h6 class="text-sm text-medium">Service</h6>
-                          </th>
-                          <th class="desc">
-                            <h6 class="text-sm text-medium">Descriptions</h6>
-                          </th>
-                          <th class="qty">
-                            <h6 class="text-sm text-medium">Qty</h6>
-                          </th>
-                          <th class="amount">
-                            <h6 class="text-sm text-medium">Amounts</h6>
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>
-                            <p class="text-sm">Admin Dashboard</p>
-                          </td>
-                          <td>
-                            <p class="text-sm">
-                              Design and Development Service
-                            </p>
-                          </td>
-                          <td>
-                            <p class="text-sm">3</p>
-                          </td>
-                          <td>
-                            <p class="text-sm">$700</p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <p class="text-sm">Landing Page</p>
-                          </td>
-                          <td>
-                            <p class="text-sm">
-                              Landing Page Ui kit design and Development
-                            </p>
-                          </td>
-                          <td>
-                            <p class="text-sm">1</p>
-                          </td>
-                          <td>
-                            <p class="text-sm">$1000</p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <p class="text-sm">Web design</p>
-                          </td>
-                          <td>
-                            <p class="text-sm">
-                              Web Design and Development and Seo
-                            </p>
-                          </td>
-                          <td>
-                            <p class="text-sm">2</p>
-                          </td>
-                          <td>
-                            <p class="text-sm">$4000</p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td></td>
-                          <td>
-                            <h6 class="text-sm text-medium">Subtotal</h6>
-                          </td>
-                          <td>
-                            <h6 class="text-sm text-bold">$5700</h6>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td></td>
-                          <td>
-                            <h6 class="text-sm text-medium">Discount</h6>
-                          </td>
-                          <td>
-                            <h6 class="text-sm text-bold">45%</h6>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td></td>
-                          <td>
-                            <h6 class="text-sm text-medium">Shipping Charge</h6>
-                          </td>
-                          <td>
-                            <h6 class="text-sm text-bold">Free</h6>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td></td>
-                          <td></td>
-                          <td>
-                            <h4>Total</h4>
-                          </td>
-                          <td>
-                            <h4>$3135</h4>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="note-wrapper warning-alert py-4 px-sm-3 px-lg-5">
-                    <div class="alert">
-                      <h5 class="text-bold mb-15">Notes:</h5>
-                      <p class="text-sm text-gray">
-                        All accounts are to be paid within 7 days from receipt
-                        of invoice. To be paid by cheque or credit card or
-                        direct payment online. If account is not paid within 7
-                        days the credits details supplied as confirmation of
-                        work undertaken will be charged the agreed quoted fee
-                        noted above.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="invoice-action">
-                    <ul
-                      class="
-                        d-flex
-                        flex-wrap
-                        align-items-center
-                        justify-content-center
-                      "
-                    >
-                      <li class="m-2">
-                        <a
-                          href="#0"
-                          class="main-btn primary-btn-outline btn-hover"
-                        >
-                          Download Invoice
-                        </a>
-                      </li>
-                      <li class="m-2">
-                        <a href="#0" class="main-btn primary-btn btn-hover">
-                          Send Invoice
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <!-- End Card -->
-              </div>
-              <!-- ENd Col -->
-            </div>
-            <!-- End Row -->
+    <!-- Invoice Wrapper Start -->
+    <div class="invoice-wrapper">
+      <div class="invoice-card card-style mb-30">
+        <div class="row" style="text-align: center;">
+          <div class="col-12">
+            <h2 class="mb-10">Recibo pago de internet</h2>
           </div>
-          <!-- Invoice Wrapper End -->
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-6 col-sm-6 col-md-6" style="border-right: 1px solid #9e9c9c;">
+            <p>Recibi de:</p>
+            <p class="text2">{{$cte->Nombre}} {{$cte->ApPaterno}} {{$cte->ApMaterno}}</p>
+          </div>
+          <div class="col-3 col-sm-3 col-md-3" style="border-right: 1px solid #9e9c9c;">
+            <p>Cantidad</p>
+            <p class="text2">$ {{$pago->cantidad}} MXN</p>
+          </div>
+          <div class="col-3 col-sm-3 col-md-3">
+            <p>Fecha</p>
+            <p class="text2">@foreach ($va as $item)
+              {{date("d-m-Y", strtotime($item->created_at))}}
+          @endforeach</p>
+          </div>
+        </div>
+        <hr>
+        <p>Información del mes pagado</p>
+        <div class="row">
+          <div class="col-6" style="border-right: 1px solid #9e9c9c;">
+            <p>Fecha Inicio</p>
+            <p class="text2">@foreach ($va as $item)
+              {{date("d-m-Y", strtotime($item->FechaInicio))}}
+          @endforeach</p>
+          </div>
+          <div class="col-6">
+              <p>Fecha Fin</p>
+              <p class="text2">@foreach ($va as $item)
+                {{date("d-m-Y", strtotime($item->FechaFin))}}
+            @endforeach</p>
+          </div>
+        </div>
+        <hr>
+        <br>
+        <p>Si tiene alguna duda con su recibo favor de comunicarse con nostros, igual si su servicio presenta fallas no dude en reportar los problemas que presenta su servicio</p>
+        <br>
+        <hr>
+        <div class="row">
+          <div class="col-6">
+
+          </div>
+          <div class="col-6">
+            <p>Su siguiente pago es</p>
+            <p class="text2">@foreach ($va as $item)
+              {{date("d-m-Y", strtotime($item->FechaFin))}}
+          @endforeach</p>
+          </div>
+        </div>
+      </div>
+      <!-- End Card -->
+    </div>
+    <!-- Invoice Wrapper End -->
 </div>
 @endsection

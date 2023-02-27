@@ -148,7 +148,7 @@
                               <p>$<?php echo $p->cantidad; ?></p>
                             </td>
                             <td class="min-width">
-                              <p><?php echo $p->tipo; ?></p>
+                              <p></p>
                             </td>
                             <td class="min-width">
                               <p><?php echo $p->fecha; ?></p>

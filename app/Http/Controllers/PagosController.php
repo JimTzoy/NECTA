@@ -56,7 +56,6 @@ class PagosController extends Controller
         $pago->cantidad = $request->cantidad;
         $pago->fecha = $request->fecha;
         $pago->observaciones = $request->observaciones;
-        $pago->tipo = $request->tipo;
         $pago->user_id = $id_user;
         $pago->cliente_id = $request->idcliente;
         $pago->save();
@@ -68,7 +67,7 @@ class PagosController extends Controller
         $cliente->FechaFin = $ffa;
         $cliente->save();
         if($request->tipo == 1){
-            $cliente->tipopago()->attach(TipoPago::where('id', $request->tipo)->first(),['nombre'=>$request->nombre]);
+            $cliente->tipopago()->attach(TipoPago::where('id', $request->tipo)->first(),['nombre'=>$request->nombre,'FechaInicio'=>$request->FechaFin,'FechaFin'=>$ffa]);
         }else{
             $imagen = $request['img'];
             //COMPRUEBA QUE SE AYA SELECCIONADO UNA IMAGEN
@@ -83,7 +82,7 @@ class PagosController extends Controller
             //LO MUEVE A LA CARPETA U LO GUARDA CON EL NOMBRE OPTENIDO
             $imagen->move('img/comprobantes/', $nombre);
             //$imagen->move(public_path().'/img/perfil/',$nombre);
-            $cliente->tipopago()->attach(TipoPago::where('id', $request->tipo)->first(),['img'=>$nombre]);
+            $cliente->tipopago()->attach(TipoPago::where('id', $request->tipo)->first(),['img'=>$nombre,'FechaInicio'=>$request->FechaFin,'FechaFin'=>$ffa]);
             }
         }
         
@@ -112,10 +111,12 @@ class PagosController extends Controller
         $request->user()->authorizeRoles(['empresa']);
         $idc = $id;
         $user_id[] = Auth::user();
-        $cte = Cliente::find($id);
-        $zn = Db::table('zonas')->select('id','clave','nombre')->get();
-        $pago = DB::table('pagos')->select('id','cantidad','fecha','tipo','created_at','updated_at')->where('cliente_id','=',$id)->get();
-        return view('pagos.show',compact('cte','idc'),['zn'=>$zn,'pg'=>$pago]);
+        $pago = Pagos::find($id);
+        $idcliente = $pago->cliente_id;
+        $cte = Cliente::find($idcliente);
+        $idv = $pago->id;
+        $va = Db::table('cliente_tipo_pago')->where('id','=',$idv)->get();
+        return view('pagos.show',compact('cte','va','pago'));
     }
 
     /**

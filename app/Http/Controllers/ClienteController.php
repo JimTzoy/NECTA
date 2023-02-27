@@ -116,7 +116,7 @@ class ClienteController extends Controller
         $user_id[] = Auth::user();
         $cte = Cliente::find($id);
         $zn = Db::table('zonas')->select('id','clave','nombre')->get();
-        $pago = DB::table('pagos')->select('id','cantidad','fecha','tipo','created_at','updated_at')->where('cliente_id','=',$id)->orderBy('fecha','desc')->paginate(5);
+        $pago = DB::table('pagos')->select('id','cantidad','fecha','created_at','updated_at')->where('cliente_id','=',$id)->orderBy('fecha','desc')->paginate(5);
         $tipoPago = DB::table('tipo_pagos')->select('id','name')->get();
         return view('clientes.show',compact('cte','idc'),['zn'=>$zn,'pg'=>$pago,'tp'=>$tipoPago]);
     }

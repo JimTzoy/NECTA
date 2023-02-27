@@ -18,7 +18,6 @@ return new class extends Migration
             $table->integer('cantidad');
             $table->date('fecha');
             $table->string('observaciones');
-            $table->string('tipo');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
             ->references('id')

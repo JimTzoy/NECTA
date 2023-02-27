@@ -12,6 +12,6 @@ class TipoPago extends Model
 
     public function clientes()
     {
-        return $this->belongsToMany(Cliente::class)->withTimestamps()->wherePivot(['nombre','img']);
+        return $this->belongsToMany(Cliente::class)->withTimestamps()->wherePivot(['nombre','img','FechaInicio','FechaFin']);
     }
 }

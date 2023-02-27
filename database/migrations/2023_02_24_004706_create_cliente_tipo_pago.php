@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('img')->nullable();
             $table->string('nombre')->nullable();
+            $table->date('FechaInicio');
+            $table->date('FechaFin');
             $table->unsignedBigInteger('cliente_id');
             $table->unsignedBigInteger('tipo_pago_id');
             $table->timestamps();
