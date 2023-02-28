@@ -141,9 +141,18 @@ class EmpleadoController extends Controller
      * @param  \App\Models\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Empleado $empleado)
+    public function destroy($id)
     {
-        //
+         $em = Empleado::find($id);
+        $emp = $em->Nombre."_".$em->ApPaterno."@somosnecta.com.mx";
+        $vd = Db::table('users')->where('email','=',$emp)->first('id');
+        $ids = $vd->id;
+        User::find($ids)->delete();
+        Empleado::find($id)->delete();
+        $notification = array(
+            'message' => 'EMPLEADO ELIMINADO EXITOSAMENTE', 
+            'alert-type' => 'success');
+        return back()->with($notification);
     }
 
     public function detalles($arr,$psw){

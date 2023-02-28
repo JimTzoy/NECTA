@@ -78,9 +78,9 @@
                             </td>
                             <td class="min-width">
                               <div class="action" style="font-size: 30px;">
-                                <a style="padding: 0px 6px 0px 0px;" href="{{action('App\Http\Controllers\ClienteController@show', $c->id)}}" class="text-primary"><li class="lni lni-eye"></li></a>
-                                <a href="{{action('App\Http\Controllers\ClienteController@edit', $c->id)}}" class="text-success"><li class="lni lni-write"></li></a>
-                                  <form action="{{action('App\Http\Controllers\ClienteController@destroy', $c->id)}}" method="post">
+                                <a style="padding: 0px 6px 0px 0px;" href="{{action('App\Http\Controllers\EmpleadoController@show', $c->id)}}" class="text-primary"><li class="lni lni-eye"></li></a>
+                                <a href="{{action('App\Http\Controllers\EmpleadoController@edit', $c->id)}}" class="text-success"><li class="lni lni-write"></li></a>
+                                  <form action="{{action('App\Http\Controllers\EmpleadoController@destroy', $c->id)}}" method="post">
                                     {{csrf_field()}}
                                     <input name="_method" type="hidden" value="DELETE">
                                     <button class="text-danger" type="submit"><i style="font-size: 30px;" class="lni lni-trash-can"> </i></button>
