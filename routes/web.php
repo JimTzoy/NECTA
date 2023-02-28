@@ -63,3 +63,11 @@ Route::get('clientes/LISTA_CLIENTES/{id}', [
 Route::name('print')->get('/clientess/imprimir/{id}', [
     'as' =>'imprimir','uses'=>'App\Http\Controllers\ClienteController@imprimir'
 ]);
+
+Route::get('pagos/ticket/{id}', [
+    'as' => 'ticket', 'uses' => 'App\Http\Controllers\PagosController@ticket'
+]);
+
+Route::name('print')->get('/pagos/imprimirticket/{id}', [
+    'as' =>'imprimirticket','uses'=>'App\Http\Controllers\PagosController@imprimirticket'
+]);

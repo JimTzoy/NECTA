@@ -85,11 +85,11 @@
         </div>
         <hr>
         <br>
-        <p>Si tiene alguna duda con su recibo favor de comunicarse con nostros, igual si su servicio presenta fallas no dude en reportar los problemas que presenta su servicio</p>
+        <p>Si tiene alguna duda con su recibo favor de comunicarse con nostros, igual si su servicio presenta fallas no dude en reportar los problemas que presenta su servicio.</p>
         <br>
         <hr>
         <div class="row">
-          <div class="col-6">
+          <div class="col-6" style="border-right: 1px solid #9e9c9c;">
 
           </div>
           <div class="col-6">
@@ -98,6 +98,21 @@
               {{date("d-m-Y", strtotime($item->FechaFin))}}
           @endforeach</p>
           </div>
+        </div>
+        <hr>
+        <div class="row" style="text-align: center;">
+          <div class="col-12">
+            <p>Gracias por su pago. Recuerde que sus pagos puntuales nos ayudan a mejorar el servicio dia con dia.</p>
+            <p>Este es un recibo sencillo no valido para tramites. y no es una factura</p>
+            <br>
+          </div>
+          <br>
+          <hr>
+          <div class="col-12">
+            <a href="{{route('imprimirticket',$cte->id)}}" class="main-btn info-btn btn-hover btn-sm">
+              <i class="lni lni-printer mr-5"></i>Imprimir</a>
+          </div>
+          
         </div>
       </div>
       <!-- End Card -->

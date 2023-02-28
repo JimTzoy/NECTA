@@ -152,4 +152,39 @@ class PagosController extends Controller
     {
         //
     }
+
+    /**
+     * FUNCION PARA LA VISTA DEL RECIBO
+     */
+    public function ticket(Request $request, $id){
+        $request->user()->authorizeRoles(['empresa']);
+        $idc = $id;
+        $user_id[] = Auth::user();
+        $pago = Pagos::find($id);
+        $idcliente = $pago->cliente_id;
+        $cte = Cliente::find($idcliente);
+        $idv = $pago->id;
+        $va = Db::table('cliente_tipo_pago')->where('id','=',$idv)->get();
+        return view('pagos.ticket',compact('cte','va','pago'));
+    }
+    /**
+     * FUNCION PARA IMPRMIR LA EL RECIBO DE PAGO
+     */
+    /**
+     * FUNCION PARA IMPRIMIR LA VISTA FORMATO
+     */
+    public function imprimirticket(Request $request, $id){
+    $request->user()->authorizeRoles(['empresa']);
+    $idc = $id;
+        $user_id[] = Auth::user();
+        $pago = Pagos::find($id);
+        $idcliente = $pago->cliente_id;
+        $cte = Cliente::find($idcliente);
+        $idv = $pago->id;
+        $va = Db::table('cliente_tipo_pago')->where('id','=',$idv)->get();
+    $pdf = \PDF::loadView('pagos.ticket', compact('cte','va','pago'));
+
+    return $pdf->download('Ticeket'.'.pdf');
+    
+    }
 }
