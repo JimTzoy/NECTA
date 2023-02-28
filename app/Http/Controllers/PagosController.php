@@ -111,12 +111,14 @@ class PagosController extends Controller
         $request->user()->authorizeRoles(['empresa']);
         $idc = $id;
         $user_id[] = Auth::user();
+        $id_user = $user_id[0]['id'];
         $pago = Pagos::find($id);
         $idcliente = $pago->cliente_id;
         $cte = Cliente::find($idcliente);
         $idv = $pago->id;
         $va = Db::table('cliente_tipo_pago')->where('id','=',$idv)->get();
-        return view('pagos.show',compact('cte','va','pago'));
+        $em = Db::table('empresas')->where('user_id','=',$id_user)->get();
+        return view('pagos.show',compact('cte','va','pago','em'));
     }
 
     /**

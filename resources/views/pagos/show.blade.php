@@ -47,7 +47,10 @@
       <div class="invoice-card card-style mb-30">
         <div class="row" style="text-align: center;">
           <div class="col-12">
-            <h2 class="mb-10">Recibo pago de internet</h2>
+            <h3 class="mb-10">Recibo pago de internet</h3>
+            <h2 class="mb-10">@foreach ($em as $e)
+              {{$e->NomComercial}}
+          @endforeach</h2>
           </div>
         </div>
         <hr>

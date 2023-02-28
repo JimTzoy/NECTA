@@ -20,6 +20,13 @@ class ClienteController extends Controller
         $request->user()->authorizeRoles(['empresa']);
         $user_id[] = Auth::user();
         $id_user = $user_id[0]['id'];
+        $em = Db::table('empresas')->where('user_id','=',$id_user)->first();
+        if($em == null){
+            $notification = array(
+                'message' => 'Registre informacion de su NEGOCIO ', 
+                'alert-type' => 'error'  );
+                return redirect()->action('App\Http\Controllers\PerfilController@index', [$request->idcliente])->with($notification);
+        }
         $v = $request->get('busqueda');
         //$ci = Db::table('clientes')->select('id','NoCliente','Nombre','ApPaterno','ApMaterno','Telefono','Direccion','Ciudad','Descripcion','FechaContrato','idAntena','plan_id','user_id','zona_id','created_at','updated_at')->where('user_id','==',$id_user)->orwhere('Nombre','like', "%$v%")->orwhere('ApPaterno','like', "%$v%")->orwhere('ApMaterno','like', "%$v%")->paginate(10);
         //var_dump($ci);

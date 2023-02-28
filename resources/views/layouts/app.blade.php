@@ -55,6 +55,14 @@
           @else
           @if(Auth::user()->hasRole('empresa'))
           <li class="nav-item">
+            <a href="{{route('empleados.index')}}">
+              <span class="icon" width="24" height="22" viewBox="0 0 22 22">
+                <span class="lni lni-agenda"></span>
+              </span>
+              <span class="text">Empleados</span>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{route('plans.index')}}">
               <span class="icon" width="24" height="22" viewBox="0 0 22 22">
                 <span class="lni lni-agenda"></span>
