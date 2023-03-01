@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('Telefono');
             $table->string('Direccion');
             $table->string('Ciudad');
+            $table->integer('user_empleado')->nullable();
             $table->unsignedBigInteger('zona_id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')

@@ -17,15 +17,18 @@ class ClienteController extends Controller
      */
     public function index(Request $request)
     {
-        $request->user()->authorizeRoles(['empresa']);
         $user_id[] = Auth::user();
+        $r = $user_id[0]['id'];
         $id_user = $user_id[0]['id'];
+        $rol = $request->user()->ObtenerRol($r);
+        if($rol == "empresa"){
+        $request->user()->authorizeRoles([$rol]);
         $em = Db::table('empresas')->where('user_id','=',$id_user)->first();
         if($em == null){
             $notification = array(
                 'message' => 'Registre informacion de su NEGOCIO ', 
                 'alert-type' => 'error'  );
-                return redirect()->action('App\Http\Controllers\PerfilController@index', [$request->idcliente])->with($notification);
+                return redirect()->action('App\Http\Controllers\PerfilController@index')->with($notification);
         }
         $v = $request->get('busqueda');
         //$ci = Db::table('clientes')->select('id','NoCliente','Nombre','ApPaterno','ApMaterno','Telefono','Direccion','Ciudad','Descripcion','FechaContrato','idAntena','plan_id','user_id','zona_id','created_at','updated_at')->where('user_id','==',$id_user)->orwhere('Nombre','like', "%$v%")->orwhere('ApPaterno','like', "%$v%")->orwhere('ApMaterno','like', "%$v%")->paginate(10);
@@ -33,6 +36,16 @@ class ClienteController extends Controller
         $ci = Db::table('clientes')->select('id','NoCliente','Nombre','ApPaterno','ApMaterno','Telefono','Direccion','Ciudad','Descripcion','FechaContrato','idAntena','plan_id','user_id','zona_id','created_at','updated_at')->where('user_id','=',$id_user)->where([['Nombre','like', "%$v%"],['ApPaterno','like', "%$v%"],['ApMaterno','like', "%$v%"]])->paginate(10);
     
         return view('clientes.index',compact('id_user'),['ci'=>$ci]);
+        }else{
+            $request->user()->authorizeRoles([$rol]);
+            $zem = Db::table('empleados')->where('user_empleado','=',$id_user)->value('user_id');
+            $zi = Db::table('empleados')->where('user_empleado','=',$id_user)->value('zona_id');
+            $v = $request->get('busqueda');
+            $ci = Db::table('clientes')->select('id','NoCliente','Nombre','ApPaterno','ApMaterno','Telefono','Direccion','Ciudad','Descripcion','FechaContrato','idAntena','plan_id','user_id','zona_id','created_at','updated_at')->where('user_id','=',$zem)->where('zona_id','=',$zi)->where([['Nombre','like', "%$v%"],['ApPaterno','like', "%$v%"],['ApMaterno','like', "%$v%"]])->paginate(10);
+    
+            return view('clientes.index',compact('id_user'),['ci'=>$ci]);
+        }
+        
     }
 
     /**
@@ -118,7 +131,7 @@ class ClienteController extends Controller
      */
     public function show(Request $request,$id)
     {
-        $request->user()->authorizeRoles(['empresa']);
+        $request->user()->authorizeRoles(['empresa','cobrador']);
         $idc = $id;
         $user_id[] = Auth::user();
         $cte = Cliente::find($id);

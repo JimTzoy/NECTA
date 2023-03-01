@@ -173,43 +173,40 @@
           </div>
           <!-- End Row -->
           @else
-          @endif
-          @endif
-</div>
-<li class="nav-item">
-            <a href="{{ url('/home') }}">
-              <span class="icon">
-                <svg width="22" height="22" viewBox="0 0 22 22">
-                  <path 
-                    d="M128 110.4C160.8 110.4 187.6 137.2 187.6 170S160.8 230 128 230S68.4 203.2 68.4 170.4S95.2 110.4 128 110.4zM128 216C153.2 216 173.6 195.6 173.6 170.4C173.6 145.2 153.2 124.8 128 124.8C102.8 124.8 82.4 145.2 82.4 170.4C82.4 195.2 102.8 216 128 216zM248.4 38.4C215.2 66.8 172.4 82.4 128 82.4S40.8 66.8 7.6 38.4C4.4 36 4 31.6 6.8 28.4C9.2 25.6 13.6 25.2 16.8 27.6C47.6 53.6 87.2 68 128.4 68S209.2 53.6 240 27.6C241.2 26.4 242.8 26 244.4 26C246.4 26 248.4 26.8 249.6 28.4C252 31.6 251.6 36 248.4 38.4z"
-                  ></path>
-                </svg>
-              </span>
-              <span class="text">Usuarios</span>
-            </a>
-          </li>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                    
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    @if(Auth::user()->hasRole('admin'))
-                    <p>HOLA ADMINISTRADOR</p>
-                    <a href="{{route('plans.index')}}">PLANES</a>
-                    @else
-                    <P>HOLA USUARIO NORMAL</P>
-                    @endif
+          @if(Auth::user()->hasRole('cobrador'))
+            <div class="row">
+              @if (isset($clc))
+                <p>Aqui se muestran los clientes vencidos, pero por el momento no hay.</p>
+                @else
+              @foreach ($clc as $clc)
+              <div class="col-xl-4 col-lg-4 col-sm-6">
+                <div class="icon-card mb-30">
+                  <div class="icon" style="color: #970606;">
+                    <i class="lni lni-revenue"></i>
+                  </div>
+                  <div class="content">
+                    <h6 class="mb-10">{{$clc->Nombre}} {{$clc->ApPaterno}} {{$clc->ApMaterno}}</h6>
+                    <p class="text-gray">Fecha Pago:</p>
+                    <h3 class="text-bold mb-10">{{date("d-m-Y", strtotime($clc->FechaFin))}}</h3>
+                    <p class="text-sm text-danger">
+                      <span class="text-gray"></span>
+                    </p>
+                    <div style="text-align:right;">
+                      <a href="#0" class="main-btn danger-btn square-btn btn-hover">Pagar</a>
+                    </div>
+                  </div>
                 </div>
+                <!-- End Icon Cart -->
+              </div>
+              @endforeach
+              @endif
+
             </div>
-        </div>
-    </div>
+
+          @else
+          @endif
+          @endif
+          @endif
 </div>
+
 @endsection

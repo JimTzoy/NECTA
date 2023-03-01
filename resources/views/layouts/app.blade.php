@@ -87,6 +87,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{route('pagos.index')}}">
+              <span class="icon" width="24" height="22" viewBox="0 0 22 22">
+                <span class="lni lni-dollar"></span>
+              </span>
+              <span class="text">Pagos</span>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{route('antenas.index')}}">
               <span class="icon" width="24" height="22" viewBox="0 0 22 22">
                 <span class="lni lni-atlassian"></span>
@@ -95,6 +103,25 @@
             </a>
           </li>
           @else
+          @if(Auth::user()->hasRole('cobrador'))
+          <li class="nav-item">
+            <a href="{{route('perfil.index')}}">
+              <span class="icon" width="24" height="22" viewBox="0 0 22 22">
+                <span class="lni lni-user"></span>
+              </span>
+              <span class="text">Perfil</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('clientes.index')}}">
+              <span class="icon" width="24" height="22" viewBox="0 0 22 22">
+                <span class="lni lni-users"></span>
+              </span>
+              <span class="text">Clientes</span>
+            </a>
+          </li>
+          @else
+          @endif
           @endif
           @endif
           <span class="divider"><hr /></span>
@@ -292,7 +319,7 @@
                       <a href="#0"> <i class="lni lni-inbox"></i> Mensajes </a>
                     </li>
                     <li>
-                      <a href="#0"> <i class="lni lni-cog"></i> fonfiguraciones </a>
+                      <a href="#0"> <i class="lni lni-cog"></i> configuración </a>
                     </li>
                     <li>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="lni lni-exit"></i>Cerrar sesión

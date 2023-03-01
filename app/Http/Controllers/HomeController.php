@@ -25,9 +25,11 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $request->user()->authorizeRoles(['user', 'admin','empresa']);
+        $request->user()->authorizeRoles(['user', 'admin','empresa','cobrador']);
         $user_id[] = Auth::user();
         $id_user = $user_id[0]['id'];
+        $zem = Db::table('empleados')->where('user_empleado','=',$id_user)->value('zona_id');
+        $usdu = Db::table('empleados')->where('user_empleado','=',$id_user)->value('user_id');
         Carbon::setLocale('es');
         $carbon = new \Carbon\Carbon();
         $fecha = $carbon->now();
@@ -37,7 +39,8 @@ class HomeController extends Controller
         $ct = Db::table('clientes')->selectRaw('COUNT(*) as total')->get();
         $t = DB::table('pagos')->where('user_id','=',$id_user)->whereMonth('Fecha','=',$f)->selectRaw('TRUNCATE(SUM(cantidad), 2) as u')->get();
         $at = Db::table('clientes')->where('user_id','=',$id_user)->where('fechaFin','<=',$ff)->selectRaw('COUNT(*) as total')->get();
-        return view('home',compact('c','ct','t','at'));
+        $clc = Db::table('clientes')->where('zona_id','=',$zem)->where('user_id','=',$usdu)->where('FechaFin','<=',$fecha)->get();
+        return view('home',compact('c','ct','t','at','clc'));
     }
 
     public function verlista(Request $request){

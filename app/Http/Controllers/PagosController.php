@@ -26,8 +26,9 @@ class PagosController extends Controller
         $request->user()->authorizeRoles(['user', 'admin','empresa']);
         $user_id[] = Auth::user();
         $id_user = $user_id[0]['id'];
-        $pago = DB::table('pagos')->select('id','cantidad','fecha','tipo','created_at')->where($id_user, '==','user_id')->get();
-        return view('pagos.index',['pg'=>$pago]);
+        $pago = DB::table('pagos')->join('clientes','clientes.id','pagos.cliente_id')->select('pagos.id','pagos.cantidad','pagos.fecha','clientes.NoCliente','clientes.Nombre','clientes.ApPaterno','clientes.ApMaterno')->where('pagos.user_id','=',$id_user)->get();
+        $tp = Db::table('cliente_tipo_pago')->get();
+        return view('pagos.index', compact('pago'),['tp'=>$tp]);
     }
 
     /**
@@ -49,9 +50,18 @@ class PagosController extends Controller
      */
     public function store(Request $request)
     {
-        $request->user()->authorizeRoles(['empresa']);
+        
         $user_id[] = Auth::user();
-        $id_user = $user_id[0]['id'];
+        $r = $user_id[0]['id'];
+        $rol = $request->user()->ObtenerRol($r);
+        if($rol == "empresa"){
+            $request->user()->authorizeRoles([$rol]);
+            $id_user = $user_id[0]['id'];
+        }else{
+            $request->user()->authorizeRoles([$rol]);
+            $id_user = Db::table('empleados')->where('user_empleado','=',$r)->value('user_id');
+        }
+        
         $pago = new Pagos();
         $pago->cantidad = $request->cantidad;
         $pago->fecha = $request->fecha;
@@ -108,10 +118,16 @@ class PagosController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $request->user()->authorizeRoles(['empresa']);
-        $idc = $id;
         $user_id[] = Auth::user();
-        $id_user = $user_id[0]['id'];
+        $r = $user_id[0]['id'];
+        $rol = $request->user()->ObtenerRol($r);
+        if($rol == "empresa"){
+            $request->user()->authorizeRoles([$rol]);
+            $id_user = $user_id[0]['id'];
+        }else{
+            $request->user()->authorizeRoles([$rol]);
+            $id_user = Db::table('empleados')->where('user_empleado','=',$r)->value('user_id');
+        }
         $pago = Pagos::find($id);
         $idcliente = $pago->cliente_id;
         $cte = Cliente::find($idcliente);
@@ -159,7 +175,7 @@ class PagosController extends Controller
      * FUNCION PARA LA VISTA DEL RECIBO
      */
     public function ticket(Request $request, $id){
-        $request->user()->authorizeRoles(['empresa']);
+        $request->user()->authorizeRoles(['empresa','cobrador']);
         $idc = $id;
         $user_id[] = Auth::user();
         $pago = Pagos::find($id);
@@ -176,7 +192,7 @@ class PagosController extends Controller
      * FUNCION PARA IMPRIMIR LA VISTA FORMATO
      */
     public function imprimirticket(Request $request, $id){
-    $request->user()->authorizeRoles(['empresa']);
+    $request->user()->authorizeRoles(['empresa','cobrador']);
     $idc = $id;
         $user_id[] = Auth::user();
         $pago = Pagos::find($id);
@@ -189,4 +205,15 @@ class PagosController extends Controller
     return $pdf->download('Ticeket'.'.pdf');
     
     }
+    /**
+     * FUNCION PARA MOSTRAR LOS TODOS LOS PAGOS 
+     */
+
+     public function allpagos(Request $request){
+        $request->user()->authorizeRoles(['empresa','cobrador']);
+        $user_id[] = Auth::user();
+        $pago = Pagos::where('user_id','=',$user_id);
+
+        return view('pagos.allpagos');
+     }
 }

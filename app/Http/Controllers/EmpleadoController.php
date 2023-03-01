@@ -75,6 +75,7 @@ class EmpleadoController extends Controller
         $Cliente->zona_id = $request->zona_id;
         $Cliente->user_id = $id_user;
         $Cliente->save();
+        $d1 = (int)$Cliente->id;
         $imagen = "user.png";
         $nombre = $request->nombre." ".$request->ApPaterno;
         $email =  strtolower($request->nombre."_".$request->ApPaterno."@somosnecta.com.mx");
@@ -87,6 +88,10 @@ class EmpleadoController extends Controller
             'password' => Hash::make($psw),
         ]);
         $user->roles()->attach(Role::where('id', $request->id)->first());
+        $d = (int)$user->id;
+        $empl = Empleado::findOrFail($d1);
+        $empl->user_empleado= $d;
+        $empl->save();
         
         if ($user == null) {
             $notification = array(

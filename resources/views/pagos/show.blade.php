@@ -93,7 +93,10 @@
         <hr>
         <div class="row">
           <div class="col-6" style="border-right: 1px solid #9e9c9c;">
-
+            <p>Recibio: </p>
+              <p class="text2">@foreach ($va as $item)
+                {{$item->nombre}}
+            @endforeach</p>
           </div>
           <div class="col-6">
             <p>Su siguiente pago es</p>

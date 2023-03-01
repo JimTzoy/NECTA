@@ -1,6 +1,7 @@
 @extends('layouts.vistaa')
 
 @section('content')
+<?php $users = auth()->user();?>
 <style>
   .oculto{
 	display: none;
@@ -250,7 +251,7 @@
                       @enderror
                     </div>
                     <div class="input-style-2 oculto efectivo">
-                      <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="{{ old('nombre') }}" placeholder="Nombre">
+                      <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" value="<?php echo $users->name;?>" placeholder="Nombre">
                       <span class="icon"> <i class="lni lni-dollar"></i> </span>
                       @error('fecha')
                         <span class="invalid-feedback" role="alert">

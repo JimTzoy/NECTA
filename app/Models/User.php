@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use Illuminate\Support\Facades\DB;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -73,5 +75,11 @@ class User extends Authenticatable
             return true;
         }
         return false;
+    }
+
+    public function ObtenerRol($r){
+
+        $rol = Db::table('role_user')->join('roles','roles.id','=','role_user.role_id')->join('users','users.id','=','role_user.user_id')->where('role_user.user_id','=',$r)->value('roles.name');
+        return $rol;
     }
 }

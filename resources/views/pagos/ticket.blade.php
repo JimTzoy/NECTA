@@ -6821,7 +6821,10 @@ button.close {
         <hr>
         <div class="row">
           <div class="col-xs-6">
-
+              <p>Recibio: </p>
+              <p class="text2">@foreach ($va as $item)
+                {{$item->nombre}}
+            @endforeach</p>
           </div>
           <div class="col-xs-6">
             <p>Su siguiente pago es</p>
