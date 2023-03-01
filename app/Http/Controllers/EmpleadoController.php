@@ -36,7 +36,7 @@ class EmpleadoController extends Controller
                 'alert-type' => 'error'  );
                 return redirect()->action('App\Http\Controllers\ZonaController@index')->with($notification);
         }
-        $emp = Db::table('Empleados')->where('user_id','=',$id_user)->get();
+        $emp = Db::table('empleados')->where('user_id','=',$id_user)->get();
         return view('empleados.index', compact('emp'));
     }
 
