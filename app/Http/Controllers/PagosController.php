@@ -69,6 +69,7 @@ class PagosController extends Controller
         $pago->user_id = $id_user;
         $pago->cliente_id = $request->idcliente;
         $pago->save();
+        $d1 = (int)$pago->id;
         $id = $request->idcliente;
         $f = date($request->FechaFin);
         $ffa = date("Y-m-d",strtotime($f.'+1 month'));
@@ -77,7 +78,7 @@ class PagosController extends Controller
         $cliente->FechaFin = $ffa;
         $cliente->save();
         if($request->tipo == 1){
-            $cliente->tipopago()->attach(TipoPago::where('id', $request->tipo)->first(),['nombre'=>$request->nombre,'FechaInicio'=>$request->FechaFin,'FechaFin'=>$ffa]);
+            $cliente->tipopago()->attach(TipoPago::where('id', $request->tipo)->first(),['nombre'=>$request->nombre,'FechaInicio'=>$request->FechaFin,'FechaFin'=>$ffa,'pago_id'=>$d1]);
         }else{
             $imagen = $request['img'];
             //COMPRUEBA QUE SE AYA SELECCIONADO UNA IMAGEN
@@ -131,8 +132,8 @@ class PagosController extends Controller
         $pago = Pagos::find($id);
         $idcliente = $pago->cliente_id;
         $cte = Cliente::find($idcliente);
-        $idv = $pago->id;
-        $va = Db::table('cliente_tipo_pago')->where('id','=',$idv)->get();
+        $pid = $pago->id;
+        $va = Db::table('cliente_tipo_pago')->where('pago_id','=',$pid)->get();
         $em = Db::table('empresas')->where('user_id','=',$id_user)->get();
         return view('pagos.show',compact('cte','va','pago','em'));
     }
@@ -181,8 +182,8 @@ class PagosController extends Controller
         $pago = Pagos::find($id);
         $idcliente = $pago->cliente_id;
         $cte = Cliente::find($idcliente);
-        $idv = $pago->id;
-        $va = Db::table('cliente_tipo_pago')->where('id','=',$idv)->get();
+        $pid = $pago->id;
+        $va = Db::table('cliente_tipo_pago')->where('pago_id','=',$pid)->get();
         return view('pagos.ticket',compact('cte','va','pago'));
     }
     /**
@@ -198,8 +199,8 @@ class PagosController extends Controller
         $pago = Pagos::find($id);
         $idcliente = $pago->cliente_id;
         $cte = Cliente::find($idcliente);
-        $idv = $pago->id;
-        $va = Db::table('cliente_tipo_pago')->where('id','=',$idv)->get();
+        $pid = $pago->id;
+        $va = Db::table('cliente_tipo_pago')->where('pago_id','=',$pid)->get();
     $pdf = \PDF::loadView('pagos.ticket', compact('cte','va','pago'));
 
     return $pdf->download('Ticeket'.'.pdf');

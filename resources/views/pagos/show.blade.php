@@ -115,7 +115,7 @@
           <br>
           <hr>
           <div class="col-12">
-            <a href="{{route('imprimirticket',$cte->id)}}" class="main-btn info-btn btn-hover btn-sm">
+            <a href="{{route('imprimirticket',$pago->id)}}" class="main-btn info-btn btn-hover btn-sm">
               <i class="lni lni-printer mr-5"></i>Imprimir</a>
           </div>
           
