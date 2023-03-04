@@ -7,9 +7,11 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ZonaController;
 use App\Http\Controllers\AntenaController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\PagoClientesController;
 use App\Http\Controllers\PagosController;
 use App\Http\Controllers\UsuariosController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,10 +39,15 @@ Route::get('/acercade', function () {
 Route::get('/blog', function(){
     return view('blog');
 });
+Route::get('/asociados', function(){
+    $emp = Db::table('empresas')->get();
+    return view('asociados',compact('emp'));
+});
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::resource('plans', PlanController::class);
 
 Route::resource('empresa', EmpresaController::class);
@@ -59,6 +66,16 @@ Route::resource('empleados', EmpleadoController::class);
 
 Route::resource('usuarios', UsuariosController::class);
 
+Route::resource('pclient', PagoClientesController::class);
+
+
+
+Route::get('pclient/index/{id}', [
+    'as' => 'index', 'uses' => 'App\Http\Controllers\PagoClientesController@index'
+]);
+Route::post('pclient/buscador/', [
+    'as' => 'buscador', 'uses' => 'App\Http\Controllers\PagoClientesController@buscador'
+]);
 Route::get('clientes/formato/{id}', [
     'as' => 'formato', 'uses' => 'App\Http\Controllers\ClienteController@formato'
 ]);
