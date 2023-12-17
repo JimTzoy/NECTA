@@ -38,5 +38,9 @@ class RoleTableSeeder extends Seeder
         $role->name = 'tecnico';
         $role->description = 'usuario registrado por la empresa para cobrar';
         $role->save();
+        $role = new Role();
+        $role->name = 'finanzas';
+        $role->description = 'usuario registrado por la empresa para cobrar';
+        $role->save();
     }
 }

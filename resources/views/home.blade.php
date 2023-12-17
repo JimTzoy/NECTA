@@ -204,6 +204,9 @@
             </div>
 
           @else
+          @if(Auth::user()->hasRole('finanzas'))
+          aqui van las finazas
+          @endif
           @endif
           @endif
           @endif

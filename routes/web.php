@@ -7,6 +7,8 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ZonaController;
 use App\Http\Controllers\AntenaController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\GastosController;
+use App\Http\Controllers\IngresosController;
 use App\Http\Controllers\PagoClientesController;
 use App\Http\Controllers\PagosController;
 use App\Http\Controllers\UsuariosController;
@@ -67,6 +69,8 @@ Route::resource('empleados', EmpleadoController::class);
 Route::resource('usuarios', UsuariosController::class);
 
 Route::resource('pclient', PagoClientesController::class);
+Route::resource('ingresos', IngresosController::class);
+Route::resource('gastos', GastosController::class);
 
 
 

@@ -121,6 +121,25 @@
             </a>
           </li>
           @else
+          @if(Auth::user()->hasRole('finanzas'))
+          <li class="nav-item">
+            <a href="{{route('ingresos.index')}}">
+              <span class="icon" width="24" height="22" viewBox="0 0 22 22">
+                <span class="lni lni-user"></span>
+              </span>
+              <span class="text">Ingresos</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('gastos.index')}}">
+              <span class="icon" width="24" height="22" viewBox="0 0 22 22">
+                <span class="lni lni-users"></span>
+              </span>
+              <span class="text">Gastos</span>
+            </a>
+          </li>
+          @else
+          @endif
           @endif
           @endif
           @endif

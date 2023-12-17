@@ -19,6 +19,7 @@ class UserTableSeeder extends Seeder
         $role_empresa = Role::where('name', 'empresa')->first();
         $role_user = Role::where('name', 'user')->first();
         $role_cliente = Role::where('name', 'cliente')->first();
+        $role_finanzas = Role::where('name', 'finanzas')->first();
         $user = new User();
         $user->name = 'Danae';
         $user->email = 'danae@somosnecta.com.mx';
@@ -75,6 +76,13 @@ class UserTableSeeder extends Seeder
         $user->password = bcrypt('necta1234');
         $user->save();
         $user->roles()->attach($role_cliente);
+        $user = new User();
+        $user->name = 'HECTOR SAMUEL';
+        $user->email = 'hectorsamu@outlook.com';
+        $user->img = 'user.png';
+        $user->password = bcrypt('necta1234');
+        $user->save();
+        $user->roles()->attach($role_finanzas);
         
     }
 }

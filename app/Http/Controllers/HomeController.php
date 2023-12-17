@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $request->user()->authorizeRoles(['user', 'admin','empresa','cobrador']);
+        $request->user()->authorizeRoles(['user', 'admin','empresa','cobrador','finanzas']);
         $user_id[] = Auth::user();
         $id_user = $user_id[0]['id'];
         $zem = Db::table('empleados')->where('user_empleado','=',$id_user)->value('zona_id');
