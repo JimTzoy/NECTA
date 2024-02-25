@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TipoBanco;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -40,7 +41,10 @@ class HomeController extends Controller
         $t = DB::table('pagos')->where('user_id','=',$id_user)->whereMonth('Fecha','=',$f)->selectRaw('TRUNCATE(SUM(cantidad), 2) as u')->get();
         $at = Db::table('clientes')->where('user_id','=',$id_user)->where('fechaFin','<=',$ff)->selectRaw('COUNT(*) as total')->get();
         $clc = Db::table('clientes')->where('zona_id','=',$zem)->where('user_id','=',$usdu)->where('FechaFin','<=',$fecha)->get();
-        return view('home',compact('c','ct','t','at','clc'));
+
+        $bancos = TipoBanco::with('ingresosxbanco', 'gastosxbanco')->get();
+        $tpb = TipoBanco::all();
+        return view('home',compact('c','ct','t','at','clc'),['bancos'=>$bancos, 'tpb'=>$tpb]);
     }
 
     public function verlista(Request $request){

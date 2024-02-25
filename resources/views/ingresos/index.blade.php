@@ -8,7 +8,7 @@
       <div class="col-md-6">
         <div class="title d-flex align-items-center flex-wrap mb-30">
           <h2 class="mr-40">Ingresos </h2>
-          <a href="{{route('ingresos.create')}}" class="main-btn primary-btn btn-hover btn-sm"> Nuevo <i class="lni lni-plus mr-5"></i></a>
+          <a class="main-btn primary-btn btn-hover btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"> Nuevo <i class="lni lni-plus mr-5"></i></a>
         </div>
       </div>
       <div class="col-md-3">
@@ -84,5 +84,77 @@
               <!-- end col -->
             </div>
             <!-- end row -->
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registrar nuevo Ingreso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form class="form-horizontal" method="POST" action="{{ route('ingresos.store') }}">
+            {{ csrf_field() }}
+              <div class="input-style-2">
+                <input id="cantidad" type="text" class="form-control @error('cantidad') is-invalid @enderror" name="cantidad" value="{{ old('cantidad') }}" required autocomplete="cantidad" autofocus placeholder="cantidad">
+                <span class="icon"> <i class="lni lni-write"></i> </span>
+                @error('cantidad')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+              </div>
+              <div class="select-style-2">
+                    <div class="select-position">
+                      <select id="tpi_id" class="form-control @error('tpi_id') is-invalid @enderror" name="tpi_id" value="{{ old('tpi_id') }}" required autocomplete="tpi_id">
+                      <option value="">    Seleccione un tipo ingreso    </option>
+                        <?php
+                            foreach ($tpi as $b) {
+                            echo "<option value=\"";
+                            echo $b->id;
+                            echo "\">";
+                            echo $b->nti;
+                            echo"</option>";
+                        }
+                        ?>
+                      </select>
+                      @if ($errors->has('tpi_id'))
+                            <span class="help-block">
+                            <strong>{{ $errors->first('tpi_id') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+                <div class="select-style-2">
+                    <div class="select-position">
+                      <select id="tpb_id" class="form-control @error('tpb_id') is-invalid @enderror" name="tpb_id" value="{{ old('tpb_id') }}" required autocomplete="tpb_id">
+                      <option value="">    Seleccione un Banco</option>
+                        <?php
+                            foreach ($tpb as $a) {
+                            echo "<option value=\"";
+                            echo $a->id;
+                            echo "\">";
+                            echo $a->ntb;
+                            echo"</option>";
+                        }
+                        ?>
+                      </select>
+                      @if ($errors->has('tpb_id'))
+                            <span class="help-block">
+                            <strong>{{ $errors->first('tpb_id') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+                <!-- end select -->
+          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="main-btn danger-btn rounded-md btn-hover" data-bs-dismiss="modal">Salir</button>
+        <button type="submit" class="main-btn success-btn rounded-md btn-hover">Guardar</button>
+      </div>
+      </form>
+    </div>
+  </div>
 </div>
 @endsection

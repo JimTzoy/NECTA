@@ -27,4 +27,8 @@ class Gastos extends Model
     {
         return $this->belongsTo(TipoGasto::class, 'tpg_id'); // Reemplaza 'TipoGastos' por el nombre correcto de tu modelo
     }
+    public function banco()
+    {
+        return $this->belongsTo(TipoBanco::class, 'tpb_id');
+    }
 }

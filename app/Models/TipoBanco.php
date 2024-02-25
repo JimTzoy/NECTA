@@ -19,4 +19,14 @@ class TipoBanco extends Model
     {
         return $this->hasMany(Gastos::class, 'tpb_id');
     }
+    public function ingresos()
+    {
+        return $this->hasMany(Ingresos::class, 'tpb_id');
+    }
+
+    public function gastos()
+    {
+        return $this->hasMany(Gastos::class, 'tpb_id');
+    }
+    
 }

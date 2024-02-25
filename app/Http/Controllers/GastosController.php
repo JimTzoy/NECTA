@@ -28,9 +28,10 @@ class GastosController extends Controller
         // Recupera todos los gastos
         //$gastos = Gastos::all(); 
         $gastos = Gastos::with('tipoBanco', 'tipoGasto')->get();
-
+        $tpg = TipoGasto::all();
+        $tpb = TipoBanco::all();
         // Pasa los datos a una vista para mostrarlos
-        return view('gastos.index', ['gastos' => $gastos]);
+        return view('gastos.index', ['tpg' => $tpg, 'tpb'=>$tpb,'gastos' => $gastos]);
     }
 
     /**

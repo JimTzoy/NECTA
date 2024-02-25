@@ -26,9 +26,11 @@ class IngresosController extends Controller
         // Recupera todos los ingresos
         //$ingresos = ingresos::all(); 
         $ingresos = Ingresos::with('tipoBanco', 'tipoIngreso')->get();
-
+        // Recupera todos tipos de los ingresos
+        $tpi = TipoIngreso::all();
+        $tpb = TipoBanco::all();
         // Pasa los datos a una vista para mostrarlos
-        return view('ingresos.index', ['ingresos' => $ingresos]);
+        return view('ingresos.index', ['ingresos' => $ingresos,'tpi' => $tpi, 'tpb'=>$tpb]);
     }
 
     /**
@@ -42,6 +44,7 @@ class IngresosController extends Controller
        // Recupera todos tipos de los ingresos
        $tpi = TipoIngreso::all();
        $tpb = TipoBanco::all();
+      
 
        // Pasa los datos a una vista para mostrarlos
        return view('ingresos.create', ['tpi' => $tpi, 'tpb'=>$tpb]);

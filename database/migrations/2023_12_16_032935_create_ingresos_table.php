@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('ingresos', function (Blueprint $table) {
             $table->id();
             $table->string('cantidad');
+            $table->string('concept')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('tpi_id');
             $table->unsignedBigInteger('tpb_id');

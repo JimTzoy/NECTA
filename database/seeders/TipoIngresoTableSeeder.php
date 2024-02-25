@@ -36,6 +36,7 @@ class TipoIngresoTableSeeder extends Seeder
             ['nti' => 'Ingresos provenientes de herencias recibidas', 'dti' => 'Ingresos recibidos como herencia de bienes o dinero.'],
             ['nti' => 'Donaciones o regalos de terceros', 'dti' => 'Ingresos recibidos en forma de donaciones o regalos de terceros.'],
             ['nti' => 'Cualquier otra fuente de ingresos que no encaje en las categorías anteriores', 'dti' => 'Ingresos provenientes de fuentes diversas que no se clasifican en las categorías anteriores.'],
+            ['nti' => 'Traspaso entre mis cuentas', 'dti' => 'Ingreso por traspaso entre mis cuentas'],
         ];
 
         foreach ($tiposDeIngreso as $tipoIngreso) {

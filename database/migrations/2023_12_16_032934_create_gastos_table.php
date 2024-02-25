@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('gastos', function (Blueprint $table) {
             $table->id();
             $table->string('cantidad');
+            $table->string('concepto')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('tpg_id');
             $table->unsignedBigInteger('tpb_id');

@@ -49,6 +49,7 @@ class TipoGastoTableSeeder extends Seeder
             ['ntg' => 'Gastos imprevistos', 'dtg' => 'Otros'],
             ['ntg' => 'Regalos', 'dtg' => 'Otros'],
             ['ntg' => 'Donaciones', 'dtg' => 'Otros'],
+            ['ntg' => 'Traspaso entre cuentas', 'dtg' => 'Otros'],
         ];
 
         foreach ($tiposDeGasto as $tipoGasto) {

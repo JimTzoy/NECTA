@@ -11,6 +11,7 @@ use App\Http\Controllers\GastosController;
 use App\Http\Controllers\IngresosController;
 use App\Http\Controllers\PagoClientesController;
 use App\Http\Controllers\PagosController;
+use App\Http\Controllers\TipoBancoController;
 use App\Http\Controllers\UsuariosController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -71,6 +72,7 @@ Route::resource('usuarios', UsuariosController::class);
 Route::resource('pclient', PagoClientesController::class);
 Route::resource('ingresos', IngresosController::class);
 Route::resource('gastos', GastosController::class);
+Route::resource('bancos', TipoBancoController::class);
 
 
 

@@ -24,6 +24,7 @@ class TipoBancoTableSeeder extends Seeder
             ['ntb' => 'ACTIVER', 'dtb' => 'Actinver Casa de Bolsa'],
             ['ntb' => 'GBM +', 'dtb' => 'Grupo Bursatil Mexicano'],
             ['ntb' => 'FINAMEX', 'dtb' => 'Casa de Bolsa Finamex'],
+            ['ntb' => 'EFECTIVO', 'dtb' => 'Dinero en efectivo'],
             // Puedes agregar más bancos con su abreviatura y descripción
         ];
     
